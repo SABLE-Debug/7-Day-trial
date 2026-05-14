@@ -1,5 +1,7 @@
 # MOBIUS — 7-DAY SAAS TEST KIT
 
+> **→ Start here: [PLAYBOOK.md](PLAYBOOK.md)** — every step of the next 7 days, named and timed.
+
 The full first-touch kit for the 7-day pivot test. AI-native Series A/B SaaS.
 
 One Loom per day. Five Looms total. Two replies, one call, one proposal sent — that is the bar.
