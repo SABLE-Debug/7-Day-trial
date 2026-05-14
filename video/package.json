@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "studio": "remotion studio",
+    "render": "remotion render src/index.ts Promo out/mobius-promo.mp4",
     "render:intro": "remotion render src/index.ts AuditLoomIntro out/audit-loom-intro.mp4",
     "render:outro": "remotion render src/index.ts AuditLoomOutro out/audit-loom-outro.mp4",
-    "render:promo": "remotion render src/index.ts LandingPromo out/mobius-promo.mp4--props=./scenes/mobius-promo.json",
+    "render:short": "remotion render src/index.ts LandingPromo out/mobius-short.mp4 --props=./scenes/mobius-promo.json",
     "tts": "node scripts/tts.mjs",
     "lint": "tsc --noEmit"
   },

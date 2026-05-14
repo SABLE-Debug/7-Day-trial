@@ -3,10 +3,19 @@ import { fps, width, height } from "./tokens";
 import { AuditLoomIntro } from "./AuditLoomIntro";
 import { AuditLoomOutro } from "./AuditLoomOutro";
 import { LandingPromo, landingPromoSchema, defaultLandingPromoProps } from "./LandingPromo";
+import { Promo, PROMO_DURATION } from "./Promo";
 
 export const Root: React.FC = () => {
   return (
     <>
+      <Composition
+        id="Promo"
+        component={Promo}
+        durationInFrames={PROMO_DURATION}
+        fps={fps}
+        width={width}
+        height={height}
+      />
       <Composition
         id="AuditLoomIntro"
         component={AuditLoomIntro}

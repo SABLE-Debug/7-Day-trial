@@ -1,0 +1,123 @@
+name: Render MOBIUS Promo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'video/src/**'
+      - 'video/package.json'
+      - 'video/public/**'
+      - '.github/workflows/render-promo.yml'
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: 'Composition to render'
+        required: false
+        default: 'Promo'
+        type: choice
+        options:
+          - Promo
+          - AuditLoomIntro
+          - AuditLoomOutro
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install Remotion + Chromium dependencies
+        run: |
+          sudo apt-get install -y \
+            libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0 \
+            libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
+            libgbm1 libxshmfence1 libasound2t64 || \
+          sudo apt-get install -y \
+            libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0 \
+            libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
+            libgbm1 libxshmfence1 libasound2
+
+      - name: Install npm dependencies
+        working-directory: video
+        run: npm install
+
+      - name: Check required assets
+        working-directory: video/public
+        run: |
+          echo "Checking video/public/ for required assets..."
+          MISSING=()
+          REQUIRED=(
+            "mobius-mark-light.png"
+            "01-moodboard.jpg"
+            "02-cards.jpg"
+            "03-showroom.jpg"
+            "04-og-poster.jpg"
+            "05-hoodie.jpg"
+            "06-loom-thumbnail-style.jpg"
+            "07-founders-guide.jpg"
+            "08-outdoor-signage.jpg"
+            "09-email-signature.png"
+            "10-work-atlas.jpg"
+            "11-work-vellum.jpg"
+            "12-work-north.jpg"
+            "13-work-prism.jpg"
+            "dontgo.mp3"
+          )
+          for f in "${REQUIRED[@]}"; do
+            if [ ! -f "$f" ]; then
+              MISSING+=("$f")
+            fi
+          done
+          if [ ${#MISSING[@]} -gt 0 ]; then
+            echo ""
+            echo "❌ Missing required assets in video/public/:"
+            for f in "${MISSING[@]}"; do echo "  - $f"; done
+            echo ""
+            echo "Upload these files via the GitHub web UI at:"
+            echo "https://github.com/${{ github.repository }}/upload/main/video/public"
+            echo ""
+            exit 1
+          fi
+          echo "✅ All 15 required assets present."
+
+      - name: Render composition
+        working-directory: video
+        env:
+          COMPOSITION: ${{ inputs.composition || 'Promo' }}
+        run: |
+          mkdir -p out
+          npx remotion render src/index.ts "$COMPOSITION" "out/mobius-${COMPOSITION,,}.mp4" \
+            --concurrency=2 \
+            --log=info
+
+      - name: Upload MP4 as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobius-promo-mp4
+          path: video/out/*.mp4
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Summary
+        run: |
+          echo "### MOBIUS Promo rendered ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download the MP4 from the **Artifacts** section at the top of this workflow run page." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          ls -lh video/out/ | tail -n +2 | while read line; do
+            echo "- \`$(echo $line | awk '{print $9}')\` — $(echo $line | awk '{print $5}')" >> $GITHUB_STEP_SUMMARY
+          done
