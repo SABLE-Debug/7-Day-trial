@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MOBIUS — Work</title>
-<meta name="description" content="MOBIUS portfolio. Brand systems for AI-native Series A/B startups." />
+<meta name="description" content="MOBIUS portfolio. Brand systems for AI-native Series A/B startups, shipped in 14 days." />
 <link rel="icon" type="image/png" sizes="180x180" href="icon-180.png" />
 <link rel="apple-touch-icon" href="icon-180.png" />
 <link rel="manifest" href="manifest.json" />
@@ -12,6 +12,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="MOBIUS" />
+<meta property="og:image" content="icon-1024.png" />
+<meta property="og:title" content="MOBIUS — Work" />
+<meta property="og:description" content="One slot a month. 14 days from signed SOW to handoff." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,9 +59,9 @@ a { color: inherit; text-decoration: none; }
   padding: 24px 32px;
   background: rgba(5,4,4,0.78);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
 }
-
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand img { width: 28px; height: 28px; }
 .brand-name {
@@ -66,7 +69,13 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.18em; text-transform: uppercase;
 }
 
-.nav-links { display: flex; gap: 8px; }
+.nav-links {
+  display: flex; gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 60vw;
+}
+.nav-links::-webkit-scrollbar { display: none; }
 .nav-link {
   font-family: var(--mono); font-size: 10px;
   letter-spacing: 0.22em; text-transform: uppercase;
@@ -75,16 +84,13 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line);
   border-radius: 999px;
   transition: color 0.3s, border-color 0.3s;
+  flex-shrink: 0;
 }
 .nav-link:hover { color: var(--bone); border-color: var(--peach); }
 .nav-link.active { color: var(--bone); border-color: var(--bone); }
 
 /* HERO */
-.hero {
-  padding: 120px 0 96px;
-  position: relative;
-  overflow: hidden;
-}
+.hero { padding: 120px 0 96px; position: relative; overflow: hidden; }
 .hero::before {
   content: "";
   position: absolute;
@@ -119,7 +125,22 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-sub em { font-style: italic; color: var(--peach); }
 
-/* CASE STUDIES */
+.hero-meta {
+  display: flex; flex-wrap: wrap;
+  gap: 24px 48px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.hero-meta span strong {
+  display: block; color: var(--bone);
+  font-weight: 500; margin-top: 6px;
+  letter-spacing: 0.12em;
+}
+
+/* SECTION SHELL */
 section { padding: 96px 0; border-top: 1px solid var(--line); }
 .section-header {
   display: flex; justify-content: space-between;
@@ -142,59 +163,67 @@ section { padding: 96px 0; border-top: 1px solid var(--line); }
   color: var(--smoke); max-width: 280px; line-height: 1.5;
 }
 
-.case {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 40px;
-  padding: 56px 0;
-  border-top: 1px solid var(--line);
-  align-items: start;
+/* FEATURED CASE */
+.featured {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
 }
-.case:first-of-type { border-top: none; }
-
-.case-meta { display: flex; flex-direction: column; gap: 18px; }
-
-.case-num {
+.featured::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient);
+}
+.featured-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+}
+.featured-meta { padding: 56px 48px; border-right: 1px solid var(--line); }
+.featured-num {
   font-family: var(--mono); font-size: 10px;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--peach);
+  color: var(--peach); margin-bottom: 16px;
 }
-
-.case-name {
+.featured-name {
   font-family: var(--serif); font-weight: 300;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.02; letter-spacing: -0.02em;
+  font-size: clamp(40px, 5vw, 68px);
+  line-height: 1; letter-spacing: -0.025em;
+  margin-bottom: 24px;
 }
-.case-name em { font-style: italic; color: var(--peach); }
-
-.case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.case-tag {
+.featured-name em { font-style: italic; color: var(--peach); }
+.featured-quote {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(20px, 1.8vw, 26px);
+  line-height: 1.35; letter-spacing: -0.01em;
+  color: var(--bone);
+  border-left: 1px solid var(--peach);
+  padding-left: 20px;
+  margin-bottom: 32px;
+}
+.featured-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px;
+}
+.featured-tag {
   font-family: var(--mono); font-size: 10px;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--smoke);
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
 }
-
-.case-body {
-  display: flex; flex-direction: column; gap: 28px;
-}
-
-.case-quote {
-  font-family: var(--serif); font-weight: 300;
-  font-size: 24px; line-height: 1.35; letter-spacing: -0.01em;
-  color: var(--bone);
-}
-.case-quote em { font-style: italic; color: var(--peach); }
-
-.case-stats {
+.featured-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
   padding: 24px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
 }
 .stat-label {
   font-family: var(--mono); font-size: 10px;
@@ -203,89 +232,274 @@ section { padding: 96px 0; border-top: 1px solid var(--line); }
 }
 .stat-value {
   font-family: var(--serif); font-weight: 300;
-  font-size: 32px; line-height: 1.1; letter-spacing: -0.015em;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.1; letter-spacing: -0.015em;
 }
 .stat-value em { font-style: italic; color: var(--peach); }
-
-.case-list { display: flex; flex-direction: column; gap: 12px; }
-.case-list-item {
-  display: flex; gap: 14px;
-  font-size: 15px; color: var(--smoke);
+.featured-bullets {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 32px;
+}
+.featured-bullets li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  font-size: 15px;
+  color: var(--smoke);
   line-height: 1.5;
 }
-.case-list-item::before {
-  content: "—"; color: var(--whisper); flex-shrink: 0;
+.featured-bullets li::before {
+  content: counter(b, decimal-leading-zero);
+  counter-increment: b;
+  color: var(--peach);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  padding-top: 4px;
 }
-
-.case-cta {
+.featured-bullets { counter-reset: b; }
+.featured-cta {
+  display: inline-flex;
+  align-items: center; gap: 10px;
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--bone);
-  align-self: flex-start;
-  padding: 14px 22px;
-  border: 1px solid var(--bone);
+  color: var(--void);
+  background: var(--bone);
+  padding: 16px 24px;
   border-radius: 999px;
-  transition: background 0.3s, color 0.3s;
 }
-.case-cta:hover { background: var(--bone); color: var(--void); }
 
-.placeholder {
+.featured-visual {
+  position: relative;
+  background: var(--void);
+  min-height: 100%;
+  overflow: hidden;
+}
+.featured-visual iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+  pointer-events: none;
+}
+.featured-visual-label {
+  position: absolute;
+  top: 16px; left: 16px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--whisper);
+  padding: 6px 10px;
+  background: rgba(5,4,4,0.7);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  z-index: 2;
+}
+
+/* RESERVED CASES GRID */
+.slots {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.slot {
   background: var(--ink);
   border: 1px dashed var(--line);
   border-radius: 12px;
-  padding: 48px;
-  text-align: center;
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 240px;
+  justify-content: space-between;
+}
+.slot-num {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--whisper);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+}
+.slot-name {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 32px; line-height: 1.05; letter-spacing: -0.02em;
+}
+.slot-name em { font-style: italic; color: var(--peach); }
+.slot-state {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.slot-state .dot {
+  width: 6px; height: 6px; border-radius: 999px;
+  background: var(--peach);
 }
 
-/* CTA */
-.cta-block {
+/* PROCESS TIMELINE */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 40px;
+}
+.day {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px 16px;
+  min-height: 200px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.day-range {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--peach);
+}
+.day-title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;
+}
+.day-body {
+  font-size: 13px; color: var(--smoke); line-height: 1.5;
+}
+
+/* CAPABILITIES */
+.capabilities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+.cap {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cap-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke);
+}
+.cap-value {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 22px; line-height: 1.2; letter-spacing: -0.015em;
+}
+.cap-value em { font-style: italic; color: var(--peach); }
+.cap-detail {
+  font-size: 13px; color: var(--whisper); line-height: 1.4; margin-top: 4px;
+}
+
+/* PRICING */
+.pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+}
+.price {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 48px 40px;
+  display: flex; flex-direction: column; gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.price.featured-price::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient);
+}
+.price-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--peach);
+}
+.price-amount {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: 1; letter-spacing: -0.03em;
+}
+.price-cadence {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke);
+}
+.price-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.price-list li {
+  font-size: 14px; color: var(--smoke); line-height: 1.5;
+  display: flex; gap: 12px;
+}
+.price-list li::before {
+  content: "—"; color: var(--whisper); flex-shrink: 0;
+}
+.price-foot {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--whisper);
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: auto;
+}
+
+/* CONTACT */
+.contact {
   margin-top: 80px;
   background: var(--ink);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 64px 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-  flex-wrap: wrap;
+  padding: 80px 56px;
   position: relative;
   overflow: hidden;
+  text-align: center;
 }
-.cta-block::before {
+.contact::before {
   content: "";
   position: absolute;
-  bottom: -100px; right: -100px;
-  width: 400px; height: 400px;
+  bottom: -200px; right: -150px;
+  width: 600px; height: 600px;
   background: var(--gradient);
-  filter: blur(120px);
-  opacity: 0.18;
+  filter: blur(160px);
+  opacity: 0.22;
   pointer-events: none;
 }
-.cta-text {
+.contact-text {
   font-family: var(--serif); font-weight: 300;
-  font-size: clamp(28px, 3.5vw, 44px);
-  line-height: 1.1; letter-spacing: -0.02em;
-  max-width: 640px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  margin-bottom: 32px;
+  position: relative;
 }
-.cta-text em { font-style: italic; color: var(--peach); }
-.cta-btn {
+.contact-text em { font-style: italic; color: var(--peach); }
+.contact-row {
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  position: relative;
+}
+.contact-row a {
   font-family: var(--mono); font-size: 11px;
   letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 18px 28px;
+  border-radius: 999px;
   background: var(--bone); color: var(--void);
-  padding: 18px 28px; border-radius: 999px;
-  position: relative; z-index: 1;
+}
+.contact-row a.outline {
+  background: none; color: var(--bone);
+  border: 1px solid var(--bone);
 }
 
-footer {
-  padding: 64px 0 48px;
-  border-top: 1px solid var(--line);
-}
+footer { padding: 64px 0 48px; border-top: 1px solid var(--line); }
 .foot-row {
   display: flex; justify-content: space-between;
   align-items: center; flex-wrap: wrap; gap: 24px;
@@ -302,14 +516,24 @@ footer {
   color: var(--whisper);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+  .featured-inner { grid-template-columns: 1fr; }
+  .featured-meta { border-right: none; border-bottom: 1px solid var(--line); }
+  .featured-visual { aspect-ratio: 16 / 9; min-height: auto; }
+  .pricing { grid-template-columns: 1fr; }
+  .timeline { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 700px) {
   .container, .nav { padding-left: 20px; padding-right: 20px; }
-  .nav-links { display: none; }
+  .nav { padding-top: 16px; padding-bottom: 16px; }
+  .nav-links .nav-link { padding: 5px 10px; font-size: 9px; }
   .hero { padding: 80px 0 64px; }
   section { padding: 72px 0; }
-  .case { grid-template-columns: 1fr; gap: 24px; }
-  .case-stats { grid-template-columns: 1fr; gap: 24px; }
-  .cta-block { padding: 40px 28px; }
+  .featured-meta { padding: 32px 24px; }
+  .featured-stats { grid-template-columns: 1fr; gap: 16px; }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .contact { padding: 48px 24px; }
+  .price { padding: 32px 24px; }
 }
 </style>
 </head>
@@ -325,6 +549,7 @@ footer {
     <a class="nav-link active" href="portfolio.html">Work</a>
     <a class="nav-link" href="design/handoff/">Design</a>
     <a class="nav-link" href="video/">Video</a>
+    <a class="nav-link" href="PLAYBOOK.md">Playbook</a>
   </div>
 </nav>
 
@@ -332,114 +557,229 @@ footer {
   <div class="container">
     <div class="hero-eyebrow">— Work / Selected case studies</div>
     <h1 class="hero-title">Brand systems, <em>shipped in 14 days.</em></h1>
-    <p class="hero-sub">Every case below was rebuilt to the same standard. <em>One studio. One retainer. Zero hires.</em></p>
+    <p class="hero-sub">Every case rebuilt to the same standard. One studio. One retainer. Zero hires. <em>Three whales beat thirty minnows. Always.</em></p>
+    <div class="hero-meta">
+      <span>Slot 01<strong>In-house · live</strong></span>
+      <span>Slot 02<strong>Reserved · Day-7 gate</strong></span>
+      <span>Slot 03<strong>Open · Month 2</strong></span>
+      <span>Slots 04–05<strong>Open · Q3</strong></span>
+    </div>
   </div>
 </header>
 
-<section>
+<section id="featured">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">— 01 / The work</div>
-      <h2 class="section-title">Five closes. <em>Open queue.</em></h2>
-      <p class="section-note">Case studies populate as Path E closes its first cohort. The studio prices a slot per month — the queue is the supply line.</p>
+      <div class="section-num">— 01 / Featured</div>
+      <h2 class="section-title">Case 01. <em>MOBIUS itself.</em></h2>
+      <p class="section-note">The studio's own brand is the first proof artifact. Built in 14 days, shipped before the first close. Every artifact you are reading right now is the case study.</p>
     </div>
 
-    <article class="case">
-      <div class="case-meta">
-        <span class="case-num">— Case 01 / In-house</span>
-        <h3 class="case-name">MOBIUS <em>itself</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">Brand</span>
-          <span class="case-tag">Site</span>
-          <span class="case-tag">Voice</span>
-          <span class="case-tag">Ops</span>
-        </div>
-      </div>
-      <div class="case-body">
-        <p class="case-quote">"The studio is its own first proof. <em>The kit ships before the close.</em>"</p>
-        <div class="case-stats">
-          <div><div class="stat-label">Shipped</div><div class="stat-value">14 <em>days</em></div></div>
-          <div><div class="stat-label">Artifacts</div><div class="stat-value">17</div></div>
-          <div><div class="stat-label">Cost</div><div class="stat-value"><em>$0</em></div></div>
-        </div>
-        <div class="case-list">
-          <span class="case-list-item">Möbius ribbon mark — vector source plus three raster variants</span>
-          <span class="case-list-item">Token system — void, ink, bone, smoke, peach, gradient endpoints</span>
-          <span class="case-list-item">Type pairing — Fraunces serif display, Geist sans body, Geist Mono labels</span>
-          <span class="case-list-item">Site — single-file index.html plus portfolio.html, both responsive, both dark-mode native</span>
-          <span class="case-list-item">Voice — banned-word list enforced, one italic accent per paragraph, first-name sign-offs</span>
-        </div>
-        <a class="case-cta" href="index.html">View the kit →</a>
-      </div>
-    </article>
+    <div class="featured">
+      <div class="featured-inner">
+        <div class="featured-meta">
+          <div class="featured-num">— CASE 01 / IN-HOUSE / SHIPPED</div>
+          <h3 class="featured-name">MOBIUS <em>itself</em></h3>
+          <p class="featured-quote">The kit ships before the close. The portfolio is the proof.</p>
+          <div class="featured-tags">
+            <span class="featured-tag">Brand mark</span>
+            <span class="featured-tag">Type system</span>
+            <span class="featured-tag">Site</span>
+            <span class="featured-tag">Voice</span>
+            <span class="featured-tag">Video pipeline</span>
+            <span class="featured-tag">Operating system</span>
+          </div>
 
-    <article class="case">
-      <div class="case-meta">
-        <span class="case-num">— Case 02 / Reserved</span>
-        <h3 class="case-name">First close <em>slot</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">AI Series A/B</span>
-          <span class="case-tag">14-day build</span>
-        </div>
-      </div>
-      <div class="case-body">
-        <div class="placeholder">Slot reserved — 7-day test in progress</div>
-        <div class="case-list">
-          <span class="case-list-item">Closes against the Day-7 decision gate</span>
-          <span class="case-list-item">Case study published two weeks after handoff</span>
-          <span class="case-list-item">Hero artifact — full brand system rebuild from audit Loom verdict</span>
-        </div>
-      </div>
-    </article>
+          <div class="featured-stats">
+            <div><div class="stat-label">Shipped</div><div class="stat-value">14 <em>days</em></div></div>
+            <div><div class="stat-label">Artifacts</div><div class="stat-value">52+</div></div>
+            <div><div class="stat-label">Cost</div><div class="stat-value"><em>$0</em></div></div>
+          </div>
 
-    <article class="case">
-      <div class="case-meta">
-        <span class="case-num">— Case 03 / Open</span>
-        <h3 class="case-name">Second <em>slot</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">AI Series A/B</span>
+          <ol class="featured-bullets">
+            <li>Möbius ribbon mark — vector source plus three raster variants, full PWA icon set</li>
+            <li>Token system — void, ink, bone, smoke, peach, plus the four gradient endpoints</li>
+            <li>Type pairing — Fraunces display, Geist body, Geist Mono labels at 0.22em tracking</li>
+            <li>Site — single-file index.html, portfolio.html, video and ops pages, dark-mode native</li>
+            <li>Voice — banned-word list, one italic per paragraph, first-name sign-offs</li>
+            <li>Video pipeline — three Remotion compositions plus HTML previews that run anywhere</li>
+            <li>Operating system — GitHub issues, PR templates, daily cadence, weekly gate</li>
+          </ol>
+
+          <a class="featured-cta" href="video/preview.html">Watch the promo →</a>
+        </div>
+        <div class="featured-visual">
+          <span class="featured-visual-label">LIVE PREVIEW · LANDING PROMO</span>
+          <iframe src="video/preview.html" loading="lazy" title="MOBIUS promo preview"></iframe>
         </div>
       </div>
-      <div class="case-body">
-        <div class="placeholder">Slot open — Month 2</div>
-      </div>
-    </article>
-
-    <article class="case">
-      <div class="case-meta">
-        <span class="case-num">— Case 04 / Open</span>
-        <h3 class="case-name">Third <em>slot</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">AI Series A/B</span>
-        </div>
-      </div>
-      <div class="case-body">
-        <div class="placeholder">Slot open — Month 3</div>
-      </div>
-    </article>
-
-    <div class="cta-block">
-      <p class="cta-text">One slot per month. <em>The next one closes within five weeks.</em></p>
-      <a class="cta-btn" href="kit/proposal-template.md">Read the proposal →</a>
     </div>
   </div>
 </section>
 
-<section>
+<section id="slots">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">— 02 / Capabilities</div>
-      <h2 class="section-title">What the studio <em>ships.</em></h2>
+      <div class="section-num">— 02 / The queue</div>
+      <h2 class="section-title">Four open slots. <em>One per month.</em></h2>
+      <p class="section-note">MOBIUS sells one slot a month. The queue is the supply line — short, intentional, asymmetric.</p>
+    </div>
+
+    <div class="slots">
+      <article class="slot">
+        <div>
+          <div class="slot-num">— CASE 02 / RESERVED</div>
+          <h3 class="slot-name">First <em>close</em></h3>
+        </div>
+        <div class="slot-state"><span class="dot"></span>Decided at Day-7 gate</div>
+      </article>
+
+      <article class="slot">
+        <div>
+          <div class="slot-num">— CASE 03 / OPEN</div>
+          <h3 class="slot-name">Month <em>2</em></h3>
+        </div>
+        <div class="slot-state"><span class="dot"></span>Accepting applications</div>
+      </article>
+
+      <article class="slot">
+        <div>
+          <div class="slot-num">— CASE 04 / OPEN</div>
+          <h3 class="slot-name">Month <em>3</em></h3>
+        </div>
+        <div class="slot-state"><span class="dot"></span>Accepting applications</div>
+      </article>
+
+      <article class="slot">
+        <div>
+          <div class="slot-num">— CASE 05 / OPEN</div>
+          <h3 class="slot-name">Month <em>4</em></h3>
+        </div>
+        <div class="slot-state"><span class="dot"></span>Accepting applications</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 03 / The process</div>
+      <h2 class="section-title">Fourteen days. <em>No slips.</em></h2>
+      <p class="section-note">One signed SOW. One founder available 30 minutes a day. Final sign-off on the mark by Day 6. The clock is the product.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="day">
+        <div class="day-range">Day 0</div>
+        <h4 class="day-title">SOW + deposit</h4>
+        <p class="day-body">Signed SOW. 50% deposit. Calendar synced.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Day 1–4</div>
+        <h4 class="day-title">Strategy + mark</h4>
+        <p class="day-body">Brand strategy locked. Three mark directions. One chosen.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Day 5–9</div>
+        <h4 class="day-title">System build</h4>
+        <p class="day-body">Type, color, motion. Component library. Tokens.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Day 10–13</div>
+        <h4 class="day-title">Site rebuild</h4>
+        <p class="day-body">Home, product, pricing, careers — on the new system.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Day 14</div>
+        <h4 class="day-title">Full handoff</h4>
+        <p class="day-body">tokens.css shipped. Balance paid. Retainer begins.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Day 15+</div>
+        <h4 class="day-title">Retainer</h4>
+        <p class="day-body">Two artifacts a week. One audit Loom a month.</p>
+      </div>
+      <div class="day">
+        <div class="day-range">Always</div>
+        <h4 class="day-title">Voice locked</h4>
+        <p class="day-body">Banned-word list. One italic per paragraph. First-name only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 04 / Capabilities</div>
+      <h2 class="section-title">What ships <em>every week.</em></h2>
       <p class="section-note">The deliverable list is the same for every engagement. The retainer keeps the system tight after handoff.</p>
     </div>
 
-    <div class="case-stats" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); border: none; padding: 0; gap: 32px;">
-      <div><div class="stat-label">Brand</div><div class="stat-value">Mark · Type · Color · Motion</div></div>
-      <div><div class="stat-label">Site</div><div class="stat-value">Home · Product · Pricing · Careers</div></div>
-      <div><div class="stat-label">Sales</div><div class="stat-value">Deck · Proposal · Email signature</div></div>
-      <div><div class="stat-label">Content</div><div class="stat-value">Two artifacts / week · One Loom / month</div></div>
-      <div><div class="stat-label">Tokens</div><div class="stat-value">tokens.css · Tailwind · Remotion</div></div>
-      <div><div class="stat-label">Ops</div><div class="stat-value">AI content layer · Voice-locked</div></div>
+    <div class="capabilities">
+      <div class="cap"><div class="cap-label">Brand</div><div class="cap-value">Mark · type · color · motion</div><div class="cap-detail">tokens.css · Tailwind config · Remotion theme</div></div>
+      <div class="cap"><div class="cap-label">Site</div><div class="cap-value">Home · product · pricing · careers</div><div class="cap-detail">Mobile-first · PWA-ready · dark-mode native</div></div>
+      <div class="cap"><div class="cap-label">Sales</div><div class="cap-value">Deck · proposal · email signature</div><div class="cap-detail">A4 print-ready · embedded-image safe</div></div>
+      <div class="cap"><div class="cap-label">Content</div><div class="cap-value">2 artifacts / week · 1 Loom / month</div><div class="cap-detail">Friday ship · voice-locked AI layer</div></div>
+      <div class="cap"><div class="cap-label">Video</div><div class="cap-value">Remotion · ElevenLabs · ffmpeg</div><div class="cap-detail">Loom intro/outro · scene-driven promos</div></div>
+      <div class="cap"><div class="cap-label">Ops</div><div class="cap-value">GitHub · cadence · ledger</div><div class="cap-detail">Issues + PR gate · zero subs added</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 05 / The numbers</div>
+      <h2 class="section-title">Setup. Retainer. <em>That's it.</em></h2>
+      <p class="section-note">No hidden line items. No project fees. No overage clauses. One floor for each layer. Either moves up — never down.</p>
+    </div>
+
+    <div class="pricing">
+      <div class="price featured-price">
+        <div>
+          <div class="price-label">— Setup · one-time</div>
+          <div class="price-amount">$30K</div>
+          <div class="price-cadence">14 days · signed SOW → handoff</div>
+        </div>
+        <ul class="price-list">
+          <li>Brand mark, type system, color system, motion system</li>
+          <li>Site rebuild — home, product, pricing, careers</li>
+          <li>Deck template, one-pager, email signature, social templates</li>
+          <li>tokens.css · Tailwind config · Remotion theme</li>
+          <li>Founders' guide — one page, rules to keep the system tight</li>
+        </ul>
+        <div class="price-foot">50% on signature · 50% on Day 14</div>
+      </div>
+
+      <div class="price">
+        <div>
+          <div class="price-label">— Retainer · monthly</div>
+          <div class="price-amount">$10K</div>
+          <div class="price-cadence">6-month min · month-to-month after</div>
+        </div>
+        <ul class="price-list">
+          <li>Two new design artifacts per week, every Friday</li>
+          <li>One audit Loom per month against a chosen competitor</li>
+          <li>AI content layer — social, hiring, investor updates</li>
+          <li>One async strategy call per week, recorded</li>
+          <li>Slack channel, 3-hour response in SAST business hours</li>
+        </ul>
+        <div class="price-foot">Per artifact at $10K · ~$580</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact">
+      <p class="contact-text">One slot per month. <em>The next one closes within five weeks.</em></p>
+      <div class="contact-row">
+        <a href="kit/proposal-template.md">Read the proposal →</a>
+        <a class="outline" href="PLAYBOOK.md">View the playbook →</a>
+      </div>
     </div>
   </div>
 </section>
