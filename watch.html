@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>MOBIUS — Watch</title>
+<meta name="theme-color" content="#050404" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="MOBIUS" />
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --void: #050404;
+  --ink: #0E0D0B;
+  --bone: #F2EDE4;
+  --smoke: rgba(242,237,228,0.55);
+  --whisper: rgba(242,237,228,0.32);
+  --line: rgba(242,237,228,0.08);
+  --peach: #F4A977;
+  --coral: #FF6B6B;
+  --electric: #7B5BFF;
+  --mint: #5BFFC2;
+  --gradient: linear-gradient(135deg, #F4A977 0%, #FF6B6B 35%, #7B5BFF 70%, #5BFFC2 100%);
+  --serif: "Fraunces", "Editorial New", Georgia, serif;
+  --sans: "Geist", system-ui, sans-serif;
+  --mono: "Geist Mono", "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--sans);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----- START SCREEN ----- */
+.start {
+  position: fixed;
+  inset: 0;
+  background: var(--void);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+}
+.start.hidden { opacity: 0; pointer-events: none; }
+.start::before {
+  content: "";
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: var(--gradient);
+  filter: blur(180px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.start-mark {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+  animation: floatY 4s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.start-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 16px;
+}
+.start-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 8vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin-bottom: 40px;
+}
+.start-title em {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 40px;
+  background: var(--bone);
+  color: var(--void);
+  border: none;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.start-btn:hover { transform: scale(1.04); }
+.start-btn::before {
+  content: "";
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 12px solid var(--void);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.start-meta {
+  margin-top: 32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--whisper);
+}
+
+/* ----- STAGE ----- */
+.stage {
+  position: fixed;
+  inset: 0;
+  background: var(--void);
+  overflow: hidden;
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6vw 7vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bloom {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient);
+  filter: blur(180px);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ----- TYPOGRAPHY ----- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: clamp(10px, 1.3vw, 14px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 4vh;
+}
+.headline {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 12vw, 144px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--bone);
+  text-align: center;
+}
+.headline.italic {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.sub {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(20px, 3.2vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 90%;
+}
+.sub .peach { color: var(--peach); }
+.mark {
+  width: clamp(80px, 12vw, 200px);
+  height: auto;
+}
+
+/* ----- SCENE 1 INTRO ----- */
+.s1 .mark {
+  opacity: 0;
+  transform: scale(0.92);
+  animation: s1mark 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+.s1 .wordmark {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(56px, 12vw, 144px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 4vh;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.s1 .wordmark span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.s1 .wordmark span:nth-child(1) { animation: letterIn 0.4s ease 2.3s forwards; }
+.s1 .wordmark span:nth-child(2) { animation: letterIn 0.4s ease 2.45s forwards; }
+.s1 .wordmark span:nth-child(3) { animation: letterIn 0.4s ease 2.6s forwards; }
+.s1 .wordmark span:nth-child(4) { animation: letterIn 0.4s ease 2.75s forwards; }
+.s1 .wordmark span:nth-child(5) { animation: letterIn 0.4s ease 2.9s forwards; }
+.s1 .wordmark span:nth-child(6) { animation: letterIn 0.4s ease 3.05s forwards; }
+
+@keyframes s1mark {
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes letterIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ----- SCENE 2 VERDICT ----- */
+.s2 { align-items: flex-start; justify-content: center; text-align: left; }
+.s2 .verdict-1, .s2 .verdict-2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(56px, 13vw, 168px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.s2 .verdict-2 .italic {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ----- SCENE 3 WHAT SHIPS ----- */
+.s3 {
+  align-items: center;
+  justify-content: center;
+}
+.s3 .cap {
+  font-family: var(--mono);
+  font-size: clamp(14px, 2.5vw, 28px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 6vh;
+}
+.s3 .word {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(48px, 12vw, 140px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-align: center;
+  position: relative;
+}
+.s3 .word .accent {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.s3 .ship-item {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+/* ----- SCENE 4 CLIENT WORK ----- */
+.s4 {
+  flex-direction: column;
+  padding: 8vw 6vw;
+}
+.s4 .row-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4vh;
+}
+.s4 .row-top .label {
+  font-family: var(--mono);
+  font-size: clamp(11px, 1.5vw, 16px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.s4 .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+  flex: 1;
+}
+.s4 .tile {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4% 4%;
+  opacity: 0;
+  transform: translateY(24px);
+  position: relative;
+  overflow: hidden;
+}
+.s4 .tile::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient);
+  opacity: 0.6;
+}
+.s4 .tile .num {
+  font-family: var(--mono);
+  font-size: clamp(9px, 1.2vw, 12px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--peach);
+  margin-bottom: 8px;
+}
+.s4 .tile .name {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 7vw, 88px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+.s4 .tile .name em {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.s4 .tile .sub {
+  font-family: var(--mono);
+  font-size: clamp(9px, 1.1vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--whisper);
+  margin-top: 12px;
+}
+
+/* ----- SCENE 5 LOOM ----- */
+.s5 { gap: 4vh; }
+.s5 .audit-tag {
+  font-family: var(--mono);
+  font-size: clamp(10px, 1.4vw, 14px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.s5 .audit-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--peach);
+}
+.s5 .verdict-large {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(36px, 7vw, 88px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  max-width: 90%;
+}
+.s5 .verdict-large .peach {
+  color: var(--peach);
+}
+.s5 .footer-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--mono);
+  font-size: clamp(10px, 1.3vw, 14px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--whisper);
+  margin-top: 4vh;
+  padding: 0 4vw;
+}
+
+/* ----- SCENE 6 WORLD ----- */
+.s6 .quote {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 8vw, 96px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-align: center;
+  max-width: 95%;
+}
+.s6 .quote .italic {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ----- SCENE 7 PRICING ----- */
+.s7 {
+  flex-direction: row;
+  gap: 16px;
+  padding: 10vw 4vw;
+}
+.s7 .price {
+  flex: 1;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 70%;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.s7 .price.right { transform: translateX(100px); }
+.s7 .price.featured::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gradient);
+}
+.s7 .price .label {
+  font-family: var(--mono);
+  font-size: clamp(10px, 1.2vw, 13px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+.s7 .price .amount {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 7vw, 88px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.s7 .price .cadence {
+  font-family: var(--mono);
+  font-size: clamp(9px, 1.1vw, 12px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+/* ----- SCENE 8 OUTRO ----- */
+.s8 { gap: 3vh; align-items: center; text-align: center; }
+.s8 .line {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(36px, 8vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  opacity: 0;
+  transform: translateY(16px);
+}
+.s8 .line.italic {
+  font-style: italic;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.s8 .mark-final {
+  width: clamp(64px, 9vw, 120px);
+  margin-top: 3vh;
+  opacity: 0;
+  transform: scale(0.92);
+}
+.s8 .pill {
+  margin-top: 1vh;
+  padding: 16px 32px;
+  border: 1px solid var(--bone);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: clamp(11px, 1.4vw, 16px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+/* ----- PROGRESS ----- */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--gradient);
+  width: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+.controls {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.controls.visible { opacity: 1; }
+.ctrl-btn {
+  background: rgba(5,4,4,0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  color: var(--bone);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* ----- SCENE TIMING ANIMATIONS ----- */
+/* Each scene animates opacity from start to start+0.4 to end-0.4 to end */
+
+.s1 { animation: scenefade 8s linear 0s forwards; }
+.s2 { animation: scenefade 14s linear 8s forwards; }
+.s3-host { animation: scenefade 16s linear 22s forwards; }
+.s4 { animation: scenefade 16s linear 38s forwards; }
+.s5 { animation: scenefade 16s linear 54s forwards; }
+.s6 { animation: scenefade 16s linear 70s forwards; }
+.s7 { animation: scenefade 16s linear 86s forwards; }
+.s8 { animation: scenefade 18s linear 102s forwards; }
+
+@keyframes scenefade {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  96% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Scene 2 verdict lines */
+.s2 .verdict-1 { animation: lineIn 0.6s cubic-bezier(0.22,1,0.36,1) 9s forwards; }
+.s2 .verdict-2 { animation: lineIn 0.6s cubic-bezier(0.22,1,0.36,1) 12s forwards; }
+@keyframes lineIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scene 3 word cycle - 6 items, 16s span starting at 22s */
+.ship-1 { animation: shipShow 2.4s ease 22.4s forwards; }
+.ship-2 { animation: shipShow 2.4s ease 24.8s forwards; }
+.ship-3 { animation: shipShow 2.4s ease 27.2s forwards; }
+.ship-4 { animation: shipShow 2.4s ease 29.6s forwards; }
+.ship-5 { animation: shipShow 2.4s ease 32s forwards; }
+.ship-6 { animation: shipShow 2.4s ease 34.4s forwards; }
+@keyframes shipShow {
+  0% { opacity: 0; transform: scale(0.94); }
+  20% { opacity: 1; transform: scale(1); }
+  80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}
+
+/* Scene 4 tiles staggered */
+.tile-1 { animation: tileIn 0.6s cubic-bezier(0.22,1,0.36,1) 39s forwards; }
+.tile-2 { animation: tileIn 0.6s cubic-bezier(0.22,1,0.36,1) 41s forwards; }
+.tile-3 { animation: tileIn 0.6s cubic-bezier(0.22,1,0.36,1) 43s forwards; }
+.tile-4 { animation: tileIn 0.6s cubic-bezier(0.22,1,0.36,1) 45s forwards; }
+@keyframes tileIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scene 7 pricing cards */
+.s7 .price.left { animation: cardIn 0.8s cubic-bezier(0.22,1,0.36,1) 87s forwards; }
+.s7 .price.right { animation: cardIn 0.8s cubic-bezier(0.22,1,0.36,1) 87.4s forwards; }
+@keyframes cardIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Scene 8 outro lines */
+.s8 .line-1 { animation: lineIn 0.6s ease 103s forwards; }
+.s8 .line-2 { animation: lineIn 0.6s ease 105s forwards; }
+.s8 .line-3 { animation: lineIn 0.6s ease 107s forwards; }
+.s8 .mark-final { animation: outroMark 0.8s cubic-bezier(0.22,1,0.36,1) 110s forwards; }
+.s8 .pill { animation: outroMark 0.8s cubic-bezier(0.22,1,0.36,1) 110.4s forwards; }
+@keyframes outroMark {
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Bloom drift */
+.bloom-1 {
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  animation: bloomShow 8s linear 0s forwards, bloomDrift 16s ease-in-out 0s infinite alternate;
+}
+.bloom-2 {
+  bottom: -300px; left: -200px;
+  width: 800px; height: 800px;
+  animation: bloomShow 14s linear 8s forwards, bloomDrift2 14s ease-in-out 8s infinite alternate;
+}
+@keyframes bloomShow {
+  0% { opacity: 0; }
+  10% { opacity: 0.18; }
+  85% { opacity: 0.18; }
+  100% { opacity: 0; }
+}
+@keyframes bloomDrift {
+  to { transform: translate(-60px, 40px); }
+}
+@keyframes bloomDrift2 {
+  to { transform: translate(40px, -60px); }
+}
+
+.paused .scene,
+.paused .progress-bar,
+.paused .bloom,
+.paused [class*="anim-"] { animation-play-state: paused !important; }
+
+@media (max-width: 700px) {
+  .s4 .grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 1fr); }
+  .s7 { flex-direction: column; padding: 8vw 6vw; }
+  .s7 .price { width: 100%; height: auto; padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="start" id="start">
+  <img class="start-mark" src="design/mobius-mark-light.png" alt="MOBIUS" />
+  <div class="start-eyebrow">— BRAND & AI OPERATING SYSTEM</div>
+  <h1 class="start-title">Not a logo. <em>The system.</em></h1>
+  <button class="start-btn" id="startBtn">Watch the promo</button>
+  <div class="start-meta">2 minutes · sound on</div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="bloom bloom-1"></div>
+  <div class="bloom bloom-2"></div>
+
+  <!-- SCENE 1 -->
+  <div class="scene s1">
+    <img class="mark" src="design/mobius-mark-light.png" alt="MOBIUS" />
+    <div class="wordmark">
+      <span>M</span><span>O</span><span>B</span><span>I</span><span>U</span><span>S</span>
+    </div>
+  </div>
+
+  <!-- SCENE 2 -->
+  <div class="scene s2">
+    <div style="padding: 0 4vw; width: 100%;">
+      <div class="eyebrow">— BRAND & AI OPERATING SYSTEM</div>
+      <div class="verdict-1">Not a logo.</div>
+      <div class="verdict-2">The <span class="italic">system.</span></div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 - holding container for word cycle -->
+  <div class="scene s3-host" style="position: absolute; inset: 0;">
+    <div class="scene s3 ship-item ship-1" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word"><span class="accent">Mark.</span></div>
+    </div>
+    <div class="scene s3 ship-item ship-2" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word">Type <span class="accent">system.</span></div>
+    </div>
+    <div class="scene s3 ship-item ship-3" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word">Color <span class="accent">tokens.</span></div>
+    </div>
+    <div class="scene s3 ship-item ship-4" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word">Site <span class="accent">rebuild.</span></div>
+    </div>
+    <div class="scene s3 ship-item ship-5" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word">Audit <span class="accent">Looms.</span></div>
+    </div>
+    <div class="scene s3 ship-item ship-6" style="opacity: 0;">
+      <div class="cap">— What ships</div>
+      <div class="word">AI <span class="accent">layer.</span></div>
+    </div>
+  </div>
+
+  <!-- SCENE 4 -->
+  <div class="scene s4">
+    <div class="row-top">
+      <span class="label">— Work shipped in 14 days</span>
+      <span class="label">Cases 01–04</span>
+    </div>
+    <div class="grid">
+      <div class="tile tile-1">
+        <span class="num">— AI MULTIMODAL</span>
+        <span class="name"><em>Atlas</em></span>
+        <span class="sub">Mobius client · 2026</span>
+      </div>
+      <div class="tile tile-2">
+        <span class="num">— KNOWLEDGE WORK</span>
+        <span class="name"><em>Vellum.</em></span>
+        <span class="sub">Mobius client · 2026</span>
+      </div>
+      <div class="tile tile-3">
+        <span class="num">— ROBOTICS</span>
+        <span class="name"><em>North</em></span>
+        <span class="sub">Mobius client · 2026</span>
+      </div>
+      <div class="tile tile-4">
+        <span class="num">— HEALTHCARE AI</span>
+        <span class="name"><em>Prism</em></span>
+        <span class="sub">Mobius client · 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 5 -->
+  <div class="scene s5">
+    <span class="audit-tag">MOBIUS — AUDIT</span>
+    <div class="verdict-large">"Series B product. <span class="peach">Seed</span> brand."</div>
+    <div class="footer-line" style="width: 100%;">
+      <span>SUBJECT: [PROSPECT]</span>
+      <span>8 MIN · MOBIUS.CO</span>
+    </div>
+  </div>
+
+  <!-- SCENE 6 -->
+  <div class="scene s6">
+    <div class="eyebrow">— The system in the world</div>
+    <div class="quote">Most brands stop at the screen.<br/><span class="italic">MOBIUS does not.</span></div>
+  </div>
+
+  <!-- SCENE 7 -->
+  <div class="scene s7">
+    <div class="price left featured">
+      <span class="label">— Setup · one-time</span>
+      <span class="amount" id="amount-setup">$30,000</span>
+      <span class="cadence">14 days · signed SOW → handoff</span>
+    </div>
+    <div class="price right">
+      <span class="label">— Retainer · monthly</span>
+      <span class="amount" id="amount-retainer">$10,000</span>
+      <span class="cadence">6-month min · month-to-month after</span>
+    </div>
+  </div>
+
+  <!-- SCENE 8 -->
+  <div class="scene s8">
+    <div class="line line-1">Three deliverables.</div>
+    <div class="line line-2">One retainer.</div>
+    <div class="line line-3 italic">Zero hires.</div>
+    <img class="mark-final" src="design/mobius-mark-light.png" alt="MOBIUS" />
+    <div class="pill">mobius.co</div>
+  </div>
+</div>
+
+<div class="progress-bar" id="progress"></div>
+
+<div class="controls" id="controls">
+  <button class="ctrl-btn" id="replay">↻ Replay</button>
+  <button class="ctrl-btn" id="pause">‖ Pause</button>
+</div>
+
+<audio id="audio" loop preload="auto">
+  <source src="dontgo.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+const start = document.getElementById('start');
+const startBtn = document.getElementById('startBtn');
+const stage = document.getElementById('stage');
+const progress = document.getElementById('progress');
+const audio = document.getElementById('audio');
+const controls = document.getElementById('controls');
+const pauseBtn = document.getElementById('pause');
+const replayBtn = document.getElementById('replay');
+
+const TOTAL_SEC = 120;
+let paused = false;
+let startTime = 0;
+
+function tick(now) {
+  if (paused) return;
+  const elapsed = (now - startTime) / 1000;
+  const pct = Math.min(1, elapsed / TOTAL_SEC);
+  progress.style.width = (pct * 100) + '%';
+  if (pct < 1) requestAnimationFrame(tick);
+}
+
+function showControls() {
+  controls.classList.add('visible');
+  clearTimeout(window._hideCtrl);
+  window._hideCtrl = setTimeout(() => controls.classList.remove('visible'), 2500);
+}
+
+startBtn.addEventListener('click', () => {
+  start.classList.add('hidden');
+  // Play audio
+  audio.play().catch(() => {
+    // Audio missing or autoplay blocked - silent playback ok
+    console.log('Audio not available, playing silent');
+  });
+  startTime = performance.now();
+  requestAnimationFrame(tick);
+  showControls();
+});
+
+document.addEventListener('mousemove', showControls);
+document.addEventListener('touchstart', showControls);
+
+pauseBtn.addEventListener('click', () => {
+  paused = !paused;
+  document.body.classList.toggle('paused', paused);
+  audio.paused ? audio.play() : audio.pause();
+  pauseBtn.textContent = paused ? '▶ Play' : '‖ Pause';
+  if (!paused) {
+    // Resume timing
+    startTime = performance.now() - (parseFloat(progress.style.width) / 100 * TOTAL_SEC * 1000);
+    requestAnimationFrame(tick);
+  }
+});
+
+replayBtn.addEventListener('click', () => {
+  location.reload();
+});
+</script>
+</body>
+</html>
