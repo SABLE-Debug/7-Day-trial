@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1280" />
+<title>MOBIUS Audit — Custom Loom Thumbnail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Geist+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #050404;
+    --ink: #0E0D0B;
+    --bone: #F2EDE4;
+    --smoke: rgba(242,237,228,0.55);
+    --whisper: rgba(242,237,228,0.32);
+    --line: rgba(242,237,228,0.08);
+    --peach: #F4A977;
+    --coral: #FF6B6B;
+    --electric: #7B5BFF;
+    --mint: #5BFFC2;
+    --gradient: linear-gradient(135deg, #F4A977 0%, #FF6B6B 35%, #7B5BFF 70%, #5BFFC2 100%);
+    --serif: "Fraunces", Georgia, serif;
+    --mono: "Geist Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #1a1a1a;
+    color: var(--bone);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--mono);
+    padding: 24px;
+  }
+  .controls {
+    max-width: 1280px;
+    margin: 0 auto 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1 1 200px;
+  }
+  .field label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+  .field input {
+    background: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--bone);
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .hint {
+    max-width: 1280px;
+    margin: 0 auto 24px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--whisper);
+  }
+
+  .canvas {
+    width: 1280px;
+    height: 720px;
+    max-width: 100%;
+    margin: 0 auto;
+    background: var(--void);
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+  .canvas::before {
+    content: "";
+    position: absolute;
+    top: -200px; right: -100px;
+    width: 700px; height: 700px;
+    background: var(--gradient);
+    filter: blur(140px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .canvas .body {
+    position: relative;
+    padding: 80px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .brand-row img { width: 56px; height: 56px; }
+  .brand-row .name {
+    font-family: var(--mono);
+    font-size: 18px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+  .tag .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: var(--peach);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .verdict {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 96px;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--bone);
+    max-width: 90%;
+  }
+  .verdict em {
+    font-style: italic;
+    background: var(--gradient);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .company {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+  .company strong {
+    display: block;
+    color: var(--bone);
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 42px;
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+    text-transform: none;
+  }
+  .runtime {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--whisper);
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <div class="field">
+    <label>Company</label>
+    <input id="company" value="Rebar" />
+  </div>
+  <div class="field">
+    <label>Verdict (one line)</label>
+    <input id="verdict" value="Series B product. Seed brand." />
+  </div>
+  <div class="field">
+    <label>Italic word in verdict</label>
+    <input id="italic" value="Seed" />
+  </div>
+  <div class="field">
+    <label>Tag</label>
+    <input id="tag" value="AUDIT" />
+  </div>
+</div>
+
+<div class="hint">— Open in Chrome → right-click the card → "Capture screenshot" → upload as Loom thumbnail. Or use the browser's print-to-PDF at 1280×720.</div>
+
+<div class="canvas" id="canvas">
+  <div class="body">
+    <div class="top">
+      <div class="brand-row">
+        <img src="../design/mobius-mark-light.png" alt="MOBIUS" />
+        <div class="name">MOBIUS</div>
+      </div>
+      <div class="tag"><span class="dot"></span><span id="tag-out">AUDIT</span></div>
+    </div>
+
+    <div class="verdict" id="verdict-out">Series B product. <em>Seed</em> brand.</div>
+
+    <div class="bottom">
+      <div class="company">Subject<strong id="company-out">Rebar</strong></div>
+      <div class="runtime">8 min · MOBIUS.CO</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const update = () => {
+    const company = $("company").value;
+    const verdict = $("verdict").value;
+    const italic = $("italic").value;
+    const tag = $("tag").value;
+
+    $("company-out").textContent = company;
+    $("tag-out").textContent = tag.toUpperCase();
+
+    if (italic && verdict.includes(italic)) {
+      const parts = verdict.split(italic);
+      $("verdict-out").innerHTML = parts[0] + "<em>" + italic + "</em>" + parts.slice(1).join(italic);
+    } else {
+      $("verdict-out").textContent = verdict;
+    }
+  };
+  ["company", "verdict", "italic", "tag"].forEach(id => $(id).addEventListener("input", update));
+  // Also honor URL params for sharing
+  const params = new URLSearchParams(location.search);
+  if (params.get("company")) $("company").value = params.get("company");
+  if (params.get("verdict")) $("verdict").value = params.get("verdict");
+  if (params.get("italic")) $("italic").value = params.get("italic");
+  if (params.get("tag")) $("tag").value = params.get("tag");
+  update();
+</script>
+
+</body>
+</html>

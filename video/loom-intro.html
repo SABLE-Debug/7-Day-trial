@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1920" />
+<title>MOBIUS Audit — Loom Intro Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300&family=Geist+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --void: #050404;
+    --bone: #F2EDE4;
+    --smoke: rgba(242,237,228,0.55);
+    --whisper: rgba(242,237,228,0.32);
+    --serif: "Fraunces", Georgia, serif;
+    --mono: "Geist Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    background: var(--void);
+    color: var(--bone);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    position: relative;
+  }
+  .mark {
+    width: 180px;
+    height: 180px;
+    opacity: 0;
+    animation: markIn 0.6s ease-out 0.4s forwards;
+  }
+  .caption {
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: textIn 0.6s ease-out 1.2s forwards;
+  }
+  .company {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 96px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--bone);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: textIn 0.6s ease-out 1.35s forwards;
+  }
+  .date {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--whisper);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: textIn 0.6s ease-out 1.5s forwards;
+  }
+  @keyframes markIn {
+    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: scale(0.95); }
+  }
+  @keyframes textIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Mobile preview — letterboxed to fit phone */
+  @media (max-width: 1920px) {
+    body { width: 100vw; height: auto; min-height: 100vh; }
+    .stage {
+      width: 100vw;
+      height: 56.25vw;
+      max-height: 100vh;
+      transform-origin: top left;
+    }
+    .mark { width: 9.4vw; height: 9.4vw; max-width: 180px; max-height: 180px; }
+    .caption { font-size: clamp(10px, 0.83vw, 16px); }
+    .company { font-size: clamp(48px, 5vw, 96px); }
+    .date { font-size: clamp(9px, 0.73vw, 14px); }
+    .stage { gap: clamp(20px, 2.5vw, 48px); }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <img class="mark" src="../design/mobius-mark-light.png" alt="MOBIUS" />
+  <div class="caption">MOBIUS BRAND AUDIT</div>
+  <div class="company" id="company">[COMPANY]</div>
+  <div class="date" id="date">2026-05-14</div>
+</div>
+<script>
+  // Allow customization via ?company=Rebar&date=2026-05-14
+  const params = new URLSearchParams(location.search);
+  const company = params.get("company");
+  const date = params.get("date");
+  if (company) document.getElementById("company").textContent = company.toUpperCase();
+  if (date) document.getElementById("date").textContent = date;
+</script>
+</body>
+</html>
