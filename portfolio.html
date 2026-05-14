@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MOBIUS — Work</title>
+<meta name="description" content="MOBIUS portfolio. Brand systems for AI-native Series A/B startups." />
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#050404" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="MOBIUS" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --void: #050404;
+  --ink: #0E0D0B;
+  --line: rgba(242, 237, 228, 0.08);
+  --bone: #F2EDE4;
+  --smoke: rgba(242, 237, 228, 0.55);
+  --whisper: rgba(242, 237, 228, 0.32);
+  --peach: #F4A977;
+  --coral: #FF6B6B;
+  --electric: #7B5BFF;
+  --mint: #5BFFC2;
+  --gradient: linear-gradient(135deg, var(--peach) 0%, var(--coral) 35%, var(--electric) 70%, var(--mint) 100%);
+  --serif: "Fraunces", "Editorial New", Georgia, serif;
+  --sans: "Geist", "Söhne", "Inter", system-ui, sans-serif;
+  --mono: "Geist Mono", "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 32px;
+  background: rgba(5,4,4,0.78);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { width: 28px; height: 28px; }
+.brand-name {
+  font-family: var(--mono); font-size: 13px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+
+.nav-links { display: flex; gap: 8px; }
+.nav-link {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke);
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.nav-link:hover { color: var(--bone); border-color: var(--peach); }
+.nav-link.active { color: var(--bone); border-color: var(--bone); }
+
+/* HERO */
+.hero {
+  padding: 120px 0 96px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -300px; left: -200px;
+  width: 800px; height: 800px;
+  background: var(--gradient);
+  filter: blur(180px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--smoke); margin-bottom: 32px;
+}
+.hero-title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(56px, 11vw, 168px); line-height: 0.92;
+  letter-spacing: -0.03em; margin-bottom: 32px;
+}
+.hero-title em {
+  font-style: italic; font-weight: 300;
+  background: var(--gradient);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.35; letter-spacing: -0.01em;
+  max-width: 720px; margin-bottom: 48px;
+}
+.hero-sub em { font-style: italic; color: var(--peach); }
+
+/* CASE STUDIES */
+section { padding: 96px 0; border-top: 1px solid var(--line); }
+.section-header {
+  display: flex; justify-content: space-between;
+  align-items: baseline; flex-wrap: wrap; gap: 24px;
+  margin-bottom: 64px;
+}
+.section-num {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--whisper);
+}
+.section-title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(40px, 6vw, 88px); line-height: 0.98;
+  letter-spacing: -0.025em; flex: 1 1 auto;
+}
+.section-title em { font-style: italic; color: var(--peach); }
+.section-note {
+  font-family: var(--sans); font-size: 14px;
+  color: var(--smoke); max-width: 280px; line-height: 1.5;
+}
+
+.case {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.case:first-of-type { border-top: none; }
+
+.case-meta { display: flex; flex-direction: column; gap: 18px; }
+
+.case-num {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--peach);
+}
+
+.case-name {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.02; letter-spacing: -0.02em;
+}
+.case-name em { font-style: italic; color: var(--peach); }
+
+.case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.case-tag {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke);
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.case-body {
+  display: flex; flex-direction: column; gap: 28px;
+}
+
+.case-quote {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 24px; line-height: 1.35; letter-spacing: -0.01em;
+  color: var(--bone);
+}
+.case-quote em { font-style: italic; color: var(--peach); }
+
+.case-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--smoke); margin-bottom: 6px;
+}
+.stat-value {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 32px; line-height: 1.1; letter-spacing: -0.015em;
+}
+.stat-value em { font-style: italic; color: var(--peach); }
+
+.case-list { display: flex; flex-direction: column; gap: 12px; }
+.case-list-item {
+  display: flex; gap: 14px;
+  font-size: 15px; color: var(--smoke);
+  line-height: 1.5;
+}
+.case-list-item::before {
+  content: "—"; color: var(--whisper); flex-shrink: 0;
+}
+
+.case-cta {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--bone);
+  align-self: flex-start;
+  padding: 14px 22px;
+  border: 1px solid var(--bone);
+  border-radius: 999px;
+  transition: background 0.3s, color 0.3s;
+}
+.case-cta:hover { background: var(--bone); color: var(--void); }
+
+.placeholder {
+  background: var(--ink);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  color: var(--whisper);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* CTA */
+.cta-block {
+  margin-top: 80px;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 64px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.cta-block::before {
+  content: "";
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: var(--gradient);
+  filter: blur(120px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.cta-text {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.1; letter-spacing: -0.02em;
+  max-width: 640px;
+}
+.cta-text em { font-style: italic; color: var(--peach); }
+.cta-btn {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  background: var(--bone); color: var(--void);
+  padding: 18px 28px; border-radius: 999px;
+  position: relative; z-index: 1;
+}
+
+footer {
+  padding: 64px 0 48px;
+  border-top: 1px solid var(--line);
+}
+.foot-row {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 24px;
+}
+.foot-mark { display: flex; align-items: center; gap: 16px; }
+.foot-mark img { width: 32px; height: 32px; }
+.foot-mark span {
+  font-family: var(--serif); font-weight: 300;
+  font-size: 22px; font-style: italic;
+}
+.foot-rule {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--whisper);
+}
+
+@media (max-width: 800px) {
+  .container, .nav { padding-left: 20px; padding-right: 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 80px 0 64px; }
+  section { padding: 72px 0; }
+  .case { grid-template-columns: 1fr; gap: 24px; }
+  .case-stats { grid-template-columns: 1fr; gap: 24px; }
+  .cta-block { padding: 40px 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html">
+    <img src="design/mobius-mark-light.png" alt="MOBIUS" />
+    <span class="brand-name">MOBIUS</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Kit</a>
+    <a class="nav-link active" href="portfolio.html">Work</a>
+    <a class="nav-link" href="design/handoff/">Design</a>
+    <a class="nav-link" href="video/">Video</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">— Work / Selected case studies</div>
+    <h1 class="hero-title">Brand systems, <em>shipped in 14 days.</em></h1>
+    <p class="hero-sub">Every case below was rebuilt to the same standard. <em>One studio. One retainer. Zero hires.</em></p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 01 / The work</div>
+      <h2 class="section-title">Five closes. <em>Open queue.</em></h2>
+      <p class="section-note">Case studies populate as Path E closes its first cohort. The studio prices a slot per month — the queue is the supply line.</p>
+    </div>
+
+    <article class="case">
+      <div class="case-meta">
+        <span class="case-num">— Case 01 / In-house</span>
+        <h3 class="case-name">MOBIUS <em>itself</em></h3>
+        <div class="case-tags">
+          <span class="case-tag">Brand</span>
+          <span class="case-tag">Site</span>
+          <span class="case-tag">Voice</span>
+          <span class="case-tag">Ops</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <p class="case-quote">"The studio is its own first proof. <em>The kit ships before the close.</em>"</p>
+        <div class="case-stats">
+          <div><div class="stat-label">Shipped</div><div class="stat-value">14 <em>days</em></div></div>
+          <div><div class="stat-label">Artifacts</div><div class="stat-value">17</div></div>
+          <div><div class="stat-label">Cost</div><div class="stat-value"><em>$0</em></div></div>
+        </div>
+        <div class="case-list">
+          <span class="case-list-item">Möbius ribbon mark — vector source plus three raster variants</span>
+          <span class="case-list-item">Token system — void, ink, bone, smoke, peach, gradient endpoints</span>
+          <span class="case-list-item">Type pairing — Fraunces serif display, Geist sans body, Geist Mono labels</span>
+          <span class="case-list-item">Site — single-file index.html plus portfolio.html, both responsive, both dark-mode native</span>
+          <span class="case-list-item">Voice — banned-word list enforced, one italic accent per paragraph, first-name sign-offs</span>
+        </div>
+        <a class="case-cta" href="index.html">View the kit →</a>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-meta">
+        <span class="case-num">— Case 02 / Reserved</span>
+        <h3 class="case-name">First close <em>slot</em></h3>
+        <div class="case-tags">
+          <span class="case-tag">AI Series A/B</span>
+          <span class="case-tag">14-day build</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="placeholder">Slot reserved — 7-day test in progress</div>
+        <div class="case-list">
+          <span class="case-list-item">Closes against the Day-7 decision gate</span>
+          <span class="case-list-item">Case study published two weeks after handoff</span>
+          <span class="case-list-item">Hero artifact — full brand system rebuild from audit Loom verdict</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-meta">
+        <span class="case-num">— Case 03 / Open</span>
+        <h3 class="case-name">Second <em>slot</em></h3>
+        <div class="case-tags">
+          <span class="case-tag">AI Series A/B</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="placeholder">Slot open — Month 2</div>
+      </div>
+    </article>
+
+    <article class="case">
+      <div class="case-meta">
+        <span class="case-num">— Case 04 / Open</span>
+        <h3 class="case-name">Third <em>slot</em></h3>
+        <div class="case-tags">
+          <span class="case-tag">AI Series A/B</span>
+        </div>
+      </div>
+      <div class="case-body">
+        <div class="placeholder">Slot open — Month 3</div>
+      </div>
+    </article>
+
+    <div class="cta-block">
+      <p class="cta-text">One slot per month. <em>The next one closes within five weeks.</em></p>
+      <a class="cta-btn" href="kit/proposal-template.md">Read the proposal →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 02 / Capabilities</div>
+      <h2 class="section-title">What the studio <em>ships.</em></h2>
+      <p class="section-note">The deliverable list is the same for every engagement. The retainer keeps the system tight after handoff.</p>
+    </div>
+
+    <div class="case-stats" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); border: none; padding: 0; gap: 32px;">
+      <div><div class="stat-label">Brand</div><div class="stat-value">Mark · Type · Color · Motion</div></div>
+      <div><div class="stat-label">Site</div><div class="stat-value">Home · Product · Pricing · Careers</div></div>
+      <div><div class="stat-label">Sales</div><div class="stat-value">Deck · Proposal · Email signature</div></div>
+      <div><div class="stat-label">Content</div><div class="stat-value">Two artifacts / week · One Loom / month</div></div>
+      <div><div class="stat-label">Tokens</div><div class="stat-value">tokens.css · Tailwind · Remotion</div></div>
+      <div><div class="stat-label">Ops</div><div class="stat-value">AI content layer · Voice-locked</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-row">
+      <div class="foot-mark">
+        <img src="design/mobius-mark-light.png" alt="MOBIUS" />
+        <span>MOBIUS</span>
+      </div>
+      <div class="foot-rule">Three whales beat thirty minnows. Always.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

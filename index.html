@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MOBIUS — 7-Day SaaS Test Kit</title>
+<meta name="description" content="Brand & AI Operating System for AI-native Series A/B startups. The 7-day pivot test kit." />
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#050404" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="MOBIUS" />
+<meta property="og:image" content="icon-1024.png" />
+<meta property="og:title" content="MOBIUS — 7-Day SaaS Test Kit" />
+<meta property="og:description" content="Not a logo. The system." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --void: #050404;
+  --ink: #0E0D0B;
+  --line: rgba(242, 237, 228, 0.08);
+  --bone: #F2EDE4;
+  --smoke: rgba(242, 237, 228, 0.55);
+  --whisper: rgba(242, 237, 228, 0.32);
+  --peach: #F4A977;
+  --coral: #FF6B6B;
+  --electric: #7B5BFF;
+  --mint: #5BFFC2;
+  --gradient: linear-gradient(135deg, var(--peach) 0%, var(--coral) 35%, var(--electric) 70%, var(--mint) 100%);
+  --serif: "Fraunces", "Editorial New", "PP Editorial New", Georgia, serif;
+  --sans: "Geist", "Söhne", "Inter", system-ui, sans-serif;
+  --mono: "Geist Mono", "Söhne Mono", "IBM Plex Mono", monospace;
+  --unit: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--void);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* NAV */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  background: rgba(5, 4, 4, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand img {
+  width: 28px;
+  height: 28px;
+}
+
+.brand-name {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.nav-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+a.tag:hover { color: var(--bone); border-color: var(--peach); }
+
+.tag .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--mint);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* HERO */
+.hero {
+  padding: 120px 0 96px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -300px;
+  right: -200px;
+  width: 800px;
+  height: 800px;
+  background: var(--gradient);
+  filter: blur(180px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 32px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(56px, 11vw, 168px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 300;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 720px;
+  color: var(--bone);
+  margin-bottom: 48px;
+}
+
+.hero-sub em {
+  font-style: italic;
+  color: var(--peach);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+.hero-meta span strong {
+  display: block;
+  color: var(--bone);
+  font-weight: 500;
+  margin-top: 6px;
+  letter-spacing: 0.12em;
+}
+
+/* SECTION SHELL */
+section {
+  padding: 96px 0;
+  border-top: 1px solid var(--line);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--whisper);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  flex: 1 1 auto;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--peach);
+}
+
+.section-note {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--smoke);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* KIT GRID */
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.kit-card {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.kit-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244, 169, 119, 0.4);
+}
+
+.kit-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.kit-card:hover::after { opacity: 1; }
+
+.kit-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+.kit-name {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+.kit-name em { font-style: italic; color: var(--peach); }
+
+.kit-desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--smoke);
+  flex: 1;
+}
+
+.kit-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bone);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.kit-link::after {
+  content: "→";
+  transition: transform 0.3s ease;
+}
+
+.kit-card:hover .kit-link::after { transform: translateX(4px); }
+
+/* TIMELINE */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.day {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 16px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--peach);
+}
+
+.day-body {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* GATE TABLE */
+.gate {
+  margin-top: 40px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gate-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 24px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gate-row:last-child { border-bottom: none; }
+
+.gate-signal {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  line-height: 1.5;
+}
+
+.gate-action {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.gate-action em { font-style: italic; color: var(--peach); }
+
+/* FOOTER */
+footer {
+  padding: 64px 0 48px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.foot-mark {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.foot-mark img { width: 32px; height: 32px; }
+
+.foot-mark span {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--bone);
+}
+
+.foot-rule {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--whisper);
+}
+
+@media (max-width: 800px) {
+  .container, .nav { padding-left: 20px; padding-right: 20px; }
+  .nav-tags { display: none; }
+  .hero { padding: 80px 0 64px; }
+  section { padding: 72px 0; }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .gate-row { grid-template-columns: 1fr; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">
+    <img src="design/mobius-mark-light.png" alt="MOBIUS" />
+    <span class="brand-name">MOBIUS</span>
+  </div>
+  <div class="nav-tags">
+    <a class="tag" href="PLAYBOOK.md" style="color: var(--peach); border-color: rgba(244,169,119,0.4);">→ PLAYBOOK</a>
+    <a class="tag" href="portfolio.html">Work</a>
+    <a class="tag" href="design/handoff/">Design</a>
+    <a class="tag" href="video/">Video</a>
+    <span class="tag"><span class="dot"></span>7-DAY TEST · DAY 0</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">— Brand & AI Operating System</div>
+    <h1 class="hero-title">Not a logo.<br /><em>The system.</em></h1>
+    <p class="hero-sub">A studio that rebuilds the entire brand system of an AI-native startup in 14 days, then runs the AI operating layer on top of it. <em>Three deliverables. One retainer. Zero hires.</em></p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px;">
+      <a href="PLAYBOOK.md" style="display: inline-flex; align-items: center; gap: 10px; padding: 18px 28px; border-radius: 999px; background: var(--bone); color: var(--void); font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; transition: transform 0.3s ease;">→ Open the 7-day playbook</a>
+      <a href="portfolio.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 18px 28px; border-radius: 999px; border: 1px solid var(--bone); color: var(--bone); font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;">View work</a>
+    </div>
+    <div class="hero-meta">
+      <span>Setup<strong>$30K · 14 days</strong></span>
+      <span>Retainer<strong>$10K / month</strong></span>
+      <span>Term<strong>6 months min</strong></span>
+      <span>Slots<strong>One per month</strong></span>
+    </div>
+  </div>
+</header>
+
+<section id="kit">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 01 / The kit</div>
+      <h2 class="section-title">Six artifacts. <em>One target buyer.</em></h2>
+      <p class="section-note">Every file in this repo is calibrated to a single buyer profile: AI-native Series A or B, $5–30M ARR, 10–50 employees, technical founders, no design team.</p>
+    </div>
+
+    <div class="kit-grid">
+      <a class="kit-card" href="kit/icp-filter.md">
+        <span class="kit-tag">01 / RUBRIC</span>
+        <h3 class="kit-name">ICP <em>filter</em></h3>
+        <p class="kit-desc">Five gates, twenty points each. A prospect with under 50 is cut. A prospect with 85+ gets a Loom this week.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+
+      <a class="kit-card" href="kit/audit-loom-template.md">
+        <span class="kit-tag">02 / SCRIPT</span>
+        <h3 class="kit-name">Audit <em>Loom</em> template</h3>
+        <p class="kit-desc">5-beat structure, 7–9 minute runtime, full shot list. Six hours of research deliver eight minutes of verdict.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+
+      <a class="kit-card" href="kit/proposal-template.md">
+        <span class="kit-tag">03 / PROPOSAL</span>
+        <h3 class="kit-name">Proposal <em>template</em></h3>
+        <p class="kit-desc">One-page A4. Two-minute read. Five-minute decision. $30K setup plus $10K retainer, six-month minimum.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+
+      <a class="kit-card" href="kit/outreach/linkedin-dm.md">
+        <span class="kit-tag">04 / OUTREACH</span>
+        <h3 class="kit-name">LinkedIn <em>DM</em></h3>
+        <p class="kit-desc">Three lines, three templates. Sent 7am SAST. Never on a Friday. Connection request stays blank.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+
+      <a class="kit-card" href="kit/outreach/twitter-dm.md">
+        <span class="kit-tag">05 / OUTREACH</span>
+        <h3 class="kit-name">X / Twitter <em>DM</em></h3>
+        <p class="kit-desc">Two lines, three templates. US business hours, never during a launch week, never during a public spat.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+
+      <a class="kit-card" href="kit/outreach/cold-email.md">
+        <span class="kit-tag">06 / OUTREACH</span>
+        <h3 class="kit-name">Cold <em>email</em></h3>
+        <p class="kit-desc">Two-email ladder, three subjects. Plain text. No tracking pixels. SPF, DKIM, DMARC all green before the first send.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="loop">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 02 / The loop</div>
+      <h2 class="section-title">Seven days. <em>Five Looms.</em></h2>
+      <p class="section-note">One target, one Loom per day. Hard stop at end of Day 7 — no extensions, no pity Looms.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="day"><span class="day-num">Day 1</span><span class="day-body">Score 50 prospects. Pick five.</span></div>
+      <div class="day"><span class="day-num">Day 2</span><span class="day-body">Six-hour dossiers. Record Looms 1–2.</span></div>
+      <div class="day"><span class="day-num">Day 3</span><span class="day-body">Send 1–2 via LinkedIn. Record 3.</span></div>
+      <div class="day"><span class="day-num">Day 4</span><span class="day-body">Send 3 via X. Record 4.</span></div>
+      <div class="day"><span class="day-num">Day 5</span><span class="day-body">Send 4 via email. Record 5.</span></div>
+      <div class="day"><span class="day-num">Day 6</span><span class="day-body">Send 5. Run Template C ladder.</span></div>
+      <div class="day"><span class="day-num">Day 7</span><span class="day-body">Read the scoreboard. Pivot or stay.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="gate">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 03 / The decision</div>
+      <h2 class="section-title">At Day 7. <em>One read.</em></h2>
+      <p class="section-note">The reply count is the only signal that matters. Two real replies and a booked call validates the pivot. Anything less, tighten or stay.</p>
+    </div>
+
+    <div class="gate">
+      <div class="gate-row">
+        <div class="gate-signal">2+ replies · 1+ call · 1+ proposal</div>
+        <div class="gate-action">Fully commit to the SaaS pivot. <em>Retarget Path E content. Rebuild Chapter 11.</em></div>
+      </div>
+      <div class="gate-row">
+        <div class="gate-signal">1 reply · no call</div>
+        <div class="gate-action">Run a second 7-day test with a tighter ICP. <em>Do not pivot yet.</em></div>
+      </div>
+      <div class="gate-row">
+        <div class="gate-signal">0 replies</div>
+        <div class="gate-action">Stay AKHARA med-spa positioning. <em>Adopt the MOBIUS visual rebrand only.</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;">
+    <div class="foot-mark">
+      <img src="design/mobius-mark-light.png" alt="MOBIUS" />
+      <span>MOBIUS</span>
+    </div>
+    <div class="foot-rule">Three whales beat thirty minnows. Always.</div>
+  </div>
+</footer>
+
+</body>
+</html>
