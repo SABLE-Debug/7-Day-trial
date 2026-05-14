@@ -1,0 +1,46 @@
+{
+  "scenes": [
+    {
+      "type": "title",
+      "durationSec": 4,
+      "eyebrow": "— BRAND & AI OPERATING SYSTEM",
+      "headline": "Not a logo.",
+      "italic": "The system."
+    },
+    {
+      "type": "quote",
+      "durationSec": 3.5,
+      "body": "We rebuild brand systems for AI-native companies in 14 days."
+    },
+    {
+      "type": "stat-block",
+      "durationSec": 4,
+      "stats": [
+        { "label": "Setup", "value": "$30K · 14 days" },
+        { "label": "Retainer", "value": "$10K / mo" },
+        { "label": "Slots", "value": "One / month" }
+      ]
+    },
+    {
+      "type": "bullet-reveal",
+      "durationSec": 7,
+      "heading": "What ships",
+      "bullets": [
+        "Brand mark, type system, color system, motion",
+        "Site rebuild — home, product, pricing, careers",
+        "AI content layer, voice-locked to the brand"
+      ]
+    },
+    {
+      "type": "quote",
+      "durationSec": 4,
+      "body": "Three deliverables. One retainer. Zero hires."
+    },
+    {
+      "type": "outro",
+      "durationSec": 4,
+      "cta": "ONE SLOT THIS MONTH",
+      "domain": "mobius.co"
+    }
+  ]
+}

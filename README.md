@@ -9,24 +9,62 @@ One Loom per day. Five Looms total. Two replies, one call, one proposal sent —
 ## THE KIT
 
 ```
+index.html                 Live landing page (MOBIUS aesthetic, links to all)
+portfolio.html             Work / case studies page
+
 kit/
   icp-filter.md            Rubric for scoring AI Series A/B prospects
-  audit-loom-template.md   5-beat script + shot list, 7–9 minute Loom
+  audit-loom-template.md   5-beat script + shot list, 7-9 minute Loom
   proposal-template.md     One-page A4, $30K setup + $10K retainer
   outreach/
     linkedin-dm.md         Three-line DM, three templates
     twitter-dm.md          Two-line DM, three templates
     cold-email.md          Two-email ladder, three subjects
+    drafts.md              Personalized DMs for the top 5 prospects
 
 prospects/
-  README.md                Workflow
-  scores.csv               Empty schema, fill as you go
+  README.md                Workflow + CSV schema
+  candidates.md            Day-1 sourced prospects with verification gate
+  scores.csv               Live scoreboard
 
 design/
   CLAUDE_DESIGN_BRIEF.md   Visual identity spec
   mobius-mark.svg          Vector mark
   mobius-mark-light.png    White on transparent
   mobius-mark-dark.png     Black on transparent
+  handoff/
+    README.md              How to fire a Claude Design task
+    01-portfolio.md        Production-grade portfolio.html brief
+    02-audit-loom-intro.md 1920x1080 Loom intro card brief
+    03-audit-loom-outro.md 1920x1080 Loom outro card brief
+    04-proposal.md         A4 print-ready proposal brief
+
+video/
+  README.md                Remotion pipeline run instructions
+  package.json             Remotion 4 + ElevenLabs deps
+  remotion.config.ts       Codec, pixel format
+  src/
+    Root.tsx               Composition registry
+    AuditLoomIntro.tsx     3s Loom intro card
+    AuditLoomOutro.tsx     4s Loom outro card with CTA pill
+    LandingPromo.tsx       Scene-based landing promo (5 scene types)
+    tokens.ts              MOBIUS tokens for video
+  scenes/
+    mobius-promo.json      Real promo scenes for mobius.co launch
+  scripts/
+    tts.mjs                ElevenLabs voiceover CLI
+  public/
+    mobius-mark-light.png  Asset bundled into renders
+
+.github/
+  CADENCE.md               Daily and weekly operating loop
+  PULL_REQUEST_TEMPLATE.md Voice + brand system gate
+  ISSUE_TEMPLATE/
+    prospect.md            Add a prospect to the queue
+    loom.md                Track one audit Loom end-to-end
+    deliverable.md         Track a retainer deliverable
+  workflows/
+    pages.yml              GitHub Pages auto-deploy on main
 
 icon-180.png               Apple touch icon
 icon-512.png               Standard favicon
