@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# MOBIUS — Brand & AI Operating System
+# https://sable-debug.github.io/7-Day-trial/
+
+Sitemap: https://sable-debug.github.io/7-Day-trial/sitemap.xml
