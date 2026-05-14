@@ -101,7 +101,13 @@ a { color: inherit; text-decoration: none; }
 .nav-tags {
   display: flex;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  max-width: 60vw;
 }
+.nav-tags::-webkit-scrollbar { display: none; }
+.nav-tags .tag { flex-shrink: 0; }
 
 .tag {
   font-family: var(--mono);
@@ -444,7 +450,10 @@ footer {
 
 @media (max-width: 800px) {
   .container, .nav { padding-left: 20px; padding-right: 20px; }
-  .nav-tags { display: none; }
+  .nav { padding-top: 16px; padding-bottom: 16px; }
+  .nav-tags { max-width: 56vw; }
+  .nav-tags .tag { padding: 5px 10px; font-size: 9px; }
+  .brand-name { font-size: 11px; }
   .hero { padding: 80px 0 64px; }
   section { padding: 72px 0; }
   .timeline { grid-template-columns: repeat(2, 1fr); }
@@ -476,6 +485,15 @@ footer {
     <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px;">
       <a href="PLAYBOOK.md" style="display: inline-flex; align-items: center; gap: 10px; padding: 18px 28px; border-radius: 999px; background: var(--bone); color: var(--void); font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; transition: transform 0.3s ease;">→ Open the 7-day playbook</a>
       <a href="portfolio.html" style="display: inline-flex; align-items: center; gap: 10px; padding: 18px 28px; border-radius: 999px; border: 1px solid var(--bone); color: var(--bone); font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;">View work</a>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--smoke);">
+      <a href="#kit" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">01 Kit</a>
+      <a href="#work" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">02 Work</a>
+      <a href="#design" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">03 Design</a>
+      <a href="#video" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">04 Video</a>
+      <a href="#ops" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">05 Ops</a>
+      <a href="#loop" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">06 Loop</a>
+      <a href="#gate" style="color: inherit; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;">07 Gate</a>
     </div>
     <div class="hero-meta">
       <span>Setup<strong>$30K · 14 days</strong></span>
@@ -540,10 +558,174 @@ footer {
   </div>
 </section>
 
+<section id="work">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 02 / The work</div>
+      <h2 class="section-title">Portfolio. <em>Five slots.</em></h2>
+      <p class="section-note">Every case rebuilt to the same standard. The studio prices one slot per month — the queue is the supply line.</p>
+    </div>
+
+    <div class="kit-grid">
+      <a class="kit-card" href="portfolio.html">
+        <span class="kit-tag">CASE 01 / IN-HOUSE</span>
+        <h3 class="kit-name">MOBIUS <em>itself</em></h3>
+        <p class="kit-desc">The studio's own brand is the first proof. 14 days. 17 artifacts. Zero cost. Click to open the portfolio.</p>
+        <span class="kit-link">View work</span>
+      </a>
+      <a class="kit-card" href="portfolio.html">
+        <span class="kit-tag">CASE 02 / RESERVED</span>
+        <h3 class="kit-name">First <em>close</em></h3>
+        <p class="kit-desc">Slot reserved against the Day-7 decision gate. Case study published two weeks after handoff.</p>
+        <span class="kit-link">View slot</span>
+      </a>
+      <a class="kit-card" href="portfolio.html">
+        <span class="kit-tag">CASES 03–05 / OPEN</span>
+        <h3 class="kit-name">Open <em>queue</em></h3>
+        <p class="kit-desc">Months 2 through 4. One slot per month. The next slot closes inside five weeks of Day 1.</p>
+        <span class="kit-link">View slots</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="design">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 03 / The design system</div>
+      <h2 class="section-title">Tokens, type, <em>and four briefs.</em></h2>
+      <p class="section-note">The visual system is locked in `design/CLAUDE_DESIGN_BRIEF.md`. Four handoff prompts are loaded and ready to fire at Claude Design.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 40px;">
+      <div style="background: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 28px;">
+        <div style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--smoke); text-transform: uppercase; margin-bottom: 14px;">PALETTE</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span style="width: 44px; height: 44px; border-radius: 8px; background: #050404; border: 1px solid var(--line);" title="void"></span>
+          <span style="width: 44px; height: 44px; border-radius: 8px; background: #0E0D0B; border: 1px solid var(--line);" title="ink"></span>
+          <span style="width: 44px; height: 44px; border-radius: 8px; background: #F2EDE4;" title="bone"></span>
+          <span style="width: 44px; height: 44px; border-radius: 8px; background: #F4A977;" title="peach"></span>
+          <span style="width: 44px; height: 44px; border-radius: 8px; background: linear-gradient(135deg,#F4A977 0%,#FF6B6B 35%,#7B5BFF 70%,#5BFFC2 100%);" title="gradient"></span>
+        </div>
+      </div>
+      <div style="background: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 28px;">
+        <div style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--smoke); text-transform: uppercase; margin-bottom: 14px;">DISPLAY</div>
+        <div style="font-family: var(--serif); font-weight: 300; font-size: 44px; line-height: 0.9; letter-spacing: -0.025em;">Fraunces <em style="color: var(--peach); font-style: italic;">italic</em></div>
+      </div>
+      <div style="background: var(--ink); border: 1px solid var(--line); border-radius: 12px; padding: 28px;">
+        <div style="font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--smoke); text-transform: uppercase; margin-bottom: 14px;">BODY · LABEL</div>
+        <div style="font-family: var(--sans); font-size: 22px; margin-bottom: 8px;">Geist Sans 400/500</div>
+        <div style="font-family: var(--mono); font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--smoke);">Geist Mono 0.22em</div>
+      </div>
+    </div>
+
+    <div class="kit-grid">
+      <a class="kit-card" href="design/handoff/01-portfolio.md">
+        <span class="kit-tag">HANDOFF 01</span>
+        <h3 class="kit-name">portfolio <em>.html</em></h3>
+        <p class="kit-desc">Production-grade portfolio site brief. Paste into Claude Design, attach the five reference images, ship.</p>
+        <span class="kit-link">Open brief</span>
+      </a>
+      <a class="kit-card" href="design/handoff/02-audit-loom-intro.md">
+        <span class="kit-tag">HANDOFF 02</span>
+        <h3 class="kit-name">Loom <em>intro card</em></h3>
+        <p class="kit-desc">1920×1080 opening card for every audit Loom. Mark, company name, date. Recorded by Remotion.</p>
+        <span class="kit-link">Open brief</span>
+      </a>
+      <a class="kit-card" href="design/handoff/03-audit-loom-outro.md">
+        <span class="kit-tag">HANDOFF 03</span>
+        <h3 class="kit-name">Loom <em>outro card</em></h3>
+        <p class="kit-desc">1920×1080 closing card. Mark, CTA caption, domain pill. Pairs with the intro card.</p>
+        <span class="kit-link">Open brief</span>
+      </a>
+      <a class="kit-card" href="design/handoff/04-proposal.md">
+        <span class="kit-tag">HANDOFF 04</span>
+        <h3 class="kit-name">Proposal <em>PDF</em></h3>
+        <p class="kit-desc">A4 single-page proposal, print-ready, inverted palette. The artifact that closes the retainer.</p>
+        <span class="kit-link">Open brief</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 04 / The video pipeline</div>
+      <h2 class="section-title">Remotion. <em>Three compositions.</em></h2>
+      <p class="section-note">Audit Loom intro/outro cards plus a scene-driven landing promo. Built on Remotion 4, voiced by ElevenLabs, encoded by ffmpeg.</p>
+    </div>
+
+    <div class="kit-grid">
+      <a class="kit-card" href="video/src/AuditLoomIntro.tsx">
+        <span class="kit-tag">COMP 01 · 3 sec</span>
+        <h3 class="kit-name">Audit Loom <em>intro</em></h3>
+        <p class="kit-desc">Mark fades in. Company name lands. Date settles. Three seconds, then dissolve to the screen recording.</p>
+        <span class="kit-link">View source</span>
+      </a>
+      <a class="kit-card" href="video/src/AuditLoomOutro.tsx">
+        <span class="kit-tag">COMP 02 · 4 sec</span>
+        <h3 class="kit-name">Audit Loom <em>outro</em></h3>
+        <p class="kit-desc">Mark holds. CTA caption settles under it. Domain pill scales in. Closes every Loom MOBIUS ships.</p>
+        <span class="kit-link">View source</span>
+      </a>
+      <a class="kit-card" href="video/src/LandingPromo.tsx">
+        <span class="kit-tag">COMP 03 · 30 sec</span>
+        <h3 class="kit-name">Landing <em>promo</em></h3>
+        <p class="kit-desc">Five scene types — title, stat-block, bullet-reveal, quote, outro. Data-driven from scenes JSON.</p>
+        <span class="kit-link">View source</span>
+      </a>
+      <a class="kit-card" href="video/README.md">
+        <span class="kit-tag">RUN</span>
+        <h3 class="kit-name">npm run <em>studio</em></h3>
+        <p class="kit-desc">cd video → npm install → npm run studio. Then render:intro, render:outro, render:promo. Output lands in out/.</p>
+        <span class="kit-link">Open README</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="ops">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">— 05 / The operating system</div>
+      <h2 class="section-title">GitHub runs <em>the studio.</em></h2>
+      <p class="section-note">Issues are units of work. PRs are deliverables. The cadence file holds the daily and weekly loop.</p>
+    </div>
+
+    <div class="kit-grid">
+      <a class="kit-card" href=".github/CADENCE.md">
+        <span class="kit-tag">CADENCE</span>
+        <h3 class="kit-name">Daily + <em>weekly</em></h3>
+        <p class="kit-desc">07:00 sends fire. 09:00 dossiers. 15:00 recording. 17:30 scoreboard update. Friday weekly-review.</p>
+        <span class="kit-link">Open file</span>
+      </a>
+      <a class="kit-card" href=".github/ISSUE_TEMPLATE/prospect.md">
+        <span class="kit-tag">ISSUE · PROSPECT</span>
+        <h3 class="kit-name">Add a <em>prospect</em></h3>
+        <p class="kit-desc">Five-gate ICP scoring template. Disqualifiers checklist. Loom hook line. One issue per prospect.</p>
+        <span class="kit-link">Open template</span>
+      </a>
+      <a class="kit-card" href=".github/ISSUE_TEMPLATE/loom.md">
+        <span class="kit-tag">ISSUE · LOOM</span>
+        <h3 class="kit-name">Track a <em>Loom</em></h3>
+        <p class="kit-desc">Six-hour dossier checklist, five-beat script gates, post-record, send. One issue per Loom from open to close.</p>
+        <span class="kit-link">Open template</span>
+      </a>
+      <a class="kit-card" href=".github/ISSUE_TEMPLATE/deliverable.md">
+        <span class="kit-tag">ISSUE · DELIVERABLE</span>
+        <h3 class="kit-name">Retainer <em>deliverable</em></h3>
+        <p class="kit-desc">Tokens applied, type pairing applied, voice gate. Two artifacts per week per client retainer.</p>
+        <span class="kit-link">Open template</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section id="loop">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">— 02 / The loop</div>
+      <div class="section-num">— 06 / The loop</div>
       <h2 class="section-title">Seven days. <em>Five Looms.</em></h2>
       <p class="section-note">One target, one Loom per day. Hard stop at end of Day 7 — no extensions, no pity Looms.</p>
     </div>
@@ -563,7 +745,7 @@ footer {
 <section id="gate">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">— 03 / The decision</div>
+      <div class="section-num">— 07 / The decision</div>
       <h2 class="section-title">At Day 7. <em>One read.</em></h2>
       <p class="section-note">The reply count is the only signal that matters. Two real replies and a booked call validates the pivot. Anything less, tighten or stay.</p>
     </div>
