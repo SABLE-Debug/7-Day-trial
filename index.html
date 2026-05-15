@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MOBIUS — Brand systems that compound</title>
+<meta name="description" content="Mobius rebuilds the brand system of an AI-native startup in 14 days, then runs the AI operating layer on top for a monthly retainer." />
+<meta name="theme-color" content="#0B0B0C" />
+<meta property="og:title" content="MOBIUS — Brand systems that compound" />
+<meta property="og:description" content="Not a logo. The system." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --void:#0B0B0C;
+  --ink:#141416;
+  --bone:#F5F4F1;
+  --smoke:rgba(245,244,241,.56);
+  --whisper:rgba(245,244,241,.30);
+  --line:rgba(245,244,241,.08);
+  --orange:#FF6B2C;
+  --amber:#FF9447;
+  --ember:rgba(255,107,44,.22);
+  --blue:#3B82F6;
+  --serif:"Fraunces","Editorial New",Georgia,serif;
+  --sans:"Geist","Inter",system-ui,sans-serif;
+  --mono:"Geist Mono","IBM Plex Mono",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--void);color:var(--bone);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+
+/* ---- global grid background ---- */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:74px 74px;mask-image:radial-gradient(ellipse 120% 90% at 50% 30%,#000 40%,transparent 100%)}
+.bg-glow{position:fixed;left:50%;top:-10%;width:80vw;height:60vh;transform:translateX(-50%);z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,var(--ember),transparent 70%);filter:blur(40px);opacity:.6}
+
+/* ---- loader ---- */
+#loader{position:fixed;inset:0;z-index:200;background:var(--void);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:26px;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+#loader.done{transform:translateY(-100%)}
+#loader .mark{width:54px;color:var(--orange);animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loader .lname{font-family:var(--mono);letter-spacing:.5em;font-size:13px;color:var(--smoke);text-indent:.5em}
+.bar{width:230px;height:2px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--amber))}
+
+/* ---- nav ---- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,5vw,64px);mix-blend-mode:difference}
+nav .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:13px;letter-spacing:.34em}
+nav .brand svg{width:24px;color:var(--orange)}
+.pill{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  padding:11px 20px;border-radius:40px;border:1px solid var(--bone);transition:.3s}
+.pill:hover{background:var(--bone);color:var(--void)}
+.pill.solid{background:var(--orange);border-color:var(--orange);color:var(--void)}
+.pill.solid:hover{background:var(--amber);border-color:var(--amber)}
+
+/* ---- section scaffold ---- */
+main{position:relative;z-index:1}
+section{position:relative;padding:clamp(90px,13vh,170px) clamp(20px,6vw,110px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:22px}
+.num{font-family:var(--mono);font-size:12px;color:var(--whisper);letter-spacing:.2em}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,5.4vw,72px);line-height:1.05;letter-spacing:-.02em}
+h2 em{font-style:italic;color:var(--orange)}
+.lead{font-size:clamp(17px,1.5vw,21px);color:var(--smoke);max-width:46ch;margin-top:24px}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.in .reveal{opacity:1;transform:none}
+.in .reveal:nth-child(2){transition-delay:.08s}
+.in .reveal:nth-child(3){transition-delay:.16s}
+.in .reveal:nth-child(4){transition-delay:.24s}
+
+/* ================= 01 HERO ================= */
+.hero{height:100vh}
+.hero-stage{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.hero-head{position:absolute;top:13vh;left:0;right:0;text-align:center;padding:0 20px;z-index:5}
+.hero-head .eyebrow{margin-bottom:14px}
+.hero-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(40px,7vw,104px);line-height:.98;letter-spacing:-.03em}
+.hero-head h1 em{font-style:italic;color:var(--orange)}
+.hero-head p{color:var(--smoke);max-width:30ch;margin:20px auto 0}
+.hero-deck{position:relative;width:620px;height:440px}
+.hcard{position:absolute;left:50%;top:50%;width:158px;height:208px;margin:-104px 0 0 -79px;border-radius:16px;
+  background:linear-gradient(160deg,rgba(30,30,33,.92),rgba(14,14,16,.92));
+  border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(6px);
+  display:flex;flex-direction:column;justify-content:space-between;padding:18px;will-change:transform}
+.hcard .hn{font-family:var(--mono);font-size:12px;color:var(--whisper);letter-spacing:.18em}
+.hcard .hl{font-family:var(--serif);font-size:21px;font-weight:300;line-height:1.1}
+.hcard::after{content:"";position:absolute;inset:0;border-radius:16px;
+  box-shadow:0 0 0 1px transparent;transition:box-shadow .5s,opacity .5s;opacity:0}
+.hero-stage.settled .hcard.lit::after{opacity:1;
+  box-shadow:0 0 0 1px var(--orange),0 0 50px 4px var(--ember),inset 0 0 40px var(--ember)}
+.hero-stage.settled .hcard.lit{border-color:rgba(255,107,44,.5)}
+.hero-stage.settled .hcard.lit .hl{color:var(--amber)}
+.heartbeat{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+  background-image:linear-gradient(rgba(255,107,44,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,44,.5) 1px,transparent 1px);
+  background-size:74px 74px}
+.hero-stage.settled .heartbeat{animation:beat 2.6s ease-in-out infinite}
+@keyframes beat{0%,46%,100%{opacity:0}8%{opacity:.34}18%{opacity:.05}26%{opacity:.4}}
+.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:var(--mono);
+  font-size:11px;letter-spacing:.24em;color:var(--whisper);z-index:5}
+.scroll-cue::after{content:"";display:block;width:1px;height:30px;margin:10px auto 0;
+  background:linear-gradient(var(--orange),transparent);animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.2;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ================= 02 THE MODEL ================= */
+.model-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px;position:relative}
+.model-flow::before{content:"";position:absolute;top:40px;left:8%;right:8%;height:1px;background:var(--line)}
+.model-flow .draw{position:absolute;top:40px;left:8%;height:1px;width:0;
+  background:linear-gradient(90deg,var(--orange),var(--amber));box-shadow:0 0 12px var(--orange)}
+.in .model-flow .draw{width:84%;transition:width 1.4s cubic-bezier(.5,0,.2,1) .2s}
+.mstep{position:relative;padding-top:0}
+.mstep .dot{width:14px;height:14px;border-radius:50%;background:var(--ink);border:1px solid var(--whisper);margin:34px auto 26px;transition:.5s}
+.in .mstep:nth-child(2) .dot{transition-delay:.3s}
+.in .mstep:nth-child(3) .dot{transition-delay:.7s}
+.in .mstep:nth-child(4) .dot{transition-delay:1.1s}
+.in .mstep .dot{background:var(--orange);border-color:var(--orange);box-shadow:0 0 22px var(--orange)}
+.mstep h3{font-family:var(--serif);font-weight:300;font-size:28px;text-align:center}
+.mstep p{color:var(--smoke);font-size:15px;text-align:center;margin-top:10px}
+
+/* ================= 03 THE OFFER ================= */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px;perspective:1400px}
+.tier{background:linear-gradient(165deg,var(--ink),#0d0d0f);border:1px solid var(--line);border-radius:18px;
+  padding:34px 28px;opacity:0;transform:rotateY(34deg) translateX(-60px) scale(.9);transform-origin:left center;
+  transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.in .tier{opacity:1;transform:none}
+.in .tier:nth-child(2){transition-delay:.13s}
+.in .tier:nth-child(3){transition-delay:.26s}
+.tier.feature{border-color:rgba(255,107,44,.45);box-shadow:0 30px 80px -40px var(--orange)}
+.tier .tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--orange);text-transform:uppercase}
+.tier .price{font-family:var(--serif);font-weight:300;font-size:46px;margin:18px 0 4px}
+.tier .sub{color:var(--whisper);font-size:13px;font-family:var(--mono)}
+.tier ul{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.tier li{font-size:15px;color:var(--smoke);padding-left:22px;position:relative}
+.tier li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+
+/* ================= 04 THE BUYER ================= */
+.buyer-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;margin-top:50px}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chip{font-family:var(--mono);font-size:13px;padding:11px 17px;border-radius:30px;border:1px solid var(--line);
+  background:var(--ink);opacity:0;transform:scale(.6) rotate(-8deg);transition:.6s cubic-bezier(.3,1.4,.4,1)}
+.in .chip{opacity:1;transform:none}
+.chip.hot{border-color:var(--orange);color:var(--amber)}
+
+/* ================= 05 THE LOOK ================= */
+.deliverable{margin-top:54px;background:linear-gradient(160deg,var(--ink),#0c0c0e);border:1px solid var(--line);
+  border-radius:20px;padding:38px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.dblock{background:#1d1d20;border:1px solid var(--line);border-radius:10px;opacity:0;transform:translateY(20px) scale(.94);
+  transition:.6s cubic-bezier(.2,.7,.2,1)}
+.in .dblock{opacity:1;transform:none}
+.dblock.b1{grid-column:span 2;height:120px}
+.dblock.b2{grid-column:span 4;height:120px;background:linear-gradient(120deg,var(--orange),var(--amber))}
+.dblock.b3{grid-column:span 3;height:84px}
+.dblock.b4{grid-column:span 3;height:84px}
+.dblock.b5{grid-column:span 6;height:60px;background:repeating-linear-gradient(90deg,#1d1d20 0 60px,var(--ember) 60px 70px)}
+.in .dblock:nth-child(2){transition-delay:.12s}
+.in .dblock:nth-child(3){transition-delay:.24s}
+.in .dblock:nth-child(4){transition-delay:.36s}
+.in .dblock:nth-child(5){transition-delay:.48s}
+
+/* ================= 06 THE PALETTE ================= */
+.palette{min-height:64vh;display:flex;align-items:center;overflow:hidden}
+.palette .sweep{position:absolute;inset:0;background:linear-gradient(115deg,var(--orange),var(--amber) 45%,transparent 72%);
+  transform:translateX(-100%);transition:transform 1.5s cubic-bezier(.6,0,.2,1)}
+.in .palette .sweep{transform:translateX(0)}
+.palette .wrap{position:relative}
+.palette h2{mix-blend-mode:difference}
+
+/* ================= 07 THE WORK ================= */
+.work-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:58px}
+.wstep{border:1px solid var(--line);border-radius:14px;padding:26px 22px;background:var(--ink);transition:.6s}
+.in .wstep{animation:lightup .6s ease forwards}
+.in .wstep:nth-child(2){animation-delay:.35s}
+.in .wstep:nth-child(3){animation-delay:.7s}
+.in .wstep:nth-child(4){animation-delay:1.05s}
+.wstep{opacity:.32}
+@keyframes lightup{to{opacity:1;border-color:rgba(255,107,44,.4);box-shadow:0 0 40px -16px var(--orange)}}
+.wstep .wn{font-family:var(--mono);color:var(--orange);font-size:13px}
+.wstep h3{font-family:var(--serif);font-weight:300;font-size:23px;margin:14px 0 8px}
+.wstep p{font-size:14px;color:var(--smoke)}
+
+/* ================= INTERLUDES ================= */
+.interlude{min-height:58vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.interlude p{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(24px,3.4vw,44px);
+  max-width:20ch;position:relative;z-index:2}
+.ribbon{position:absolute;left:-20%;width:140%;height:120px;
+  background:linear-gradient(90deg,transparent,var(--orange),var(--amber),transparent);
+  filter:blur(34px);opacity:.5;animation:ribbon 7s ease-in-out infinite}
+@keyframes ribbon{0%,100%{transform:translateY(-60px) rotate(-6deg) scaleX(.9)}50%{transform:translateY(60px) rotate(6deg) scaleX(1.1)}}
+.orbit{position:absolute;width:340px;height:340px}
+.orbit i{position:absolute;inset:0;border:1px solid var(--line);border-radius:50%}
+.orbit i::before{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;
+  background:var(--orange);box-shadow:0 0 18px var(--orange)}
+.orbit i:nth-child(1){animation:orb 6s linear infinite}
+.orbit i:nth-child(2){transform:scale(.66);animation:orb 4s linear infinite reverse}
+.orbit i:nth-child(3){transform:scale(.33);animation:orb 8s linear infinite}
+@keyframes orb{to{transform:rotate(360deg)}}
+.orbit i:nth-child(2){animation-name:orb2}
+@keyframes orb2{to{transform:scale(.66) rotate(-360deg)}}
+.orbit i:nth-child(3){animation-name:orb3}
+@keyframes orb3{to{transform:scale(.33) rotate(360deg)}}
+
+/* ================= 09 THE MOATS ================= */
+.moats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:58px}
+.moat{border:1px solid var(--line);border-radius:16px;padding:30px;background:var(--ink);
+  opacity:0;transform:translateY(34px) rotateX(20deg);transform-origin:top;
+  transition:.7s cubic-bezier(.2,.7,.2,1)}
+.in .moat{opacity:1;transform:none}
+.in .moat:nth-child(2){transition-delay:.1s}.in .moat:nth-child(3){transition-delay:.2s}
+.in .moat:nth-child(4){transition-delay:.3s}.in .moat:nth-child(5){transition-delay:.4s}
+.in .moat:nth-child(6){transition-delay:.5s}
+.moat .mi{font-family:var(--mono);font-size:13px;color:var(--orange)}
+.moat h3{font-family:var(--serif);font-weight:300;font-size:24px;margin:14px 0 10px}
+.moat p{font-size:14px;color:var(--smoke)}
+
+/* ================= 10 DISTRIBUTION ================= */
+.dist{margin-top:50px}
+.dist svg{width:100%;height:300px;overflow:visible}
+.dist-line{fill:none;stroke:var(--orange);stroke-width:3;filter:drop-shadow(0 0 10px var(--orange))}
+.dist-area{fill:url(#distfill);opacity:0;transition:opacity 1s .6s}
+.in .dist-area{opacity:1}
+
+/* ================= 12 THE MATH ================= */
+.math{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:58px;text-align:center}
+.stat .big{font-family:var(--serif);font-weight:300;font-size:clamp(48px,7vw,96px);color:var(--orange);line-height:1}
+.stat .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--smoke);text-transform:uppercase;margin-top:14px}
+
+/* ================= 13 TWO PATHS ================= */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:54px}
+.path{border:1px solid var(--line);border-radius:18px;padding:34px;background:var(--ink)}
+.path.feature{border-color:rgba(255,107,44,.4)}
+.path h3{font-family:var(--serif);font-weight:300;font-size:26px;margin-bottom:24px}
+.tline{display:flex;flex-direction:column;gap:0}
+.tnode{display:flex;gap:16px;align-items:flex-start;padding-bottom:22px;position:relative}
+.tnode:not(:last-child)::before{content:"";position:absolute;left:6px;top:14px;bottom:0;width:1px;background:var(--line)}
+.tnode .d{width:13px;height:13px;border-radius:50%;background:var(--ink);border:1px solid var(--orange);flex:none;margin-top:2px;
+  transform:scale(0);transition:transform .4s}
+.in .tnode .d{transform:scale(1)}
+.in .tnode:nth-child(2) .d{transition-delay:.15s}.in .tnode:nth-child(3) .d{transition-delay:.3s}
+.in .tnode:nth-child(4) .d{transition-delay:.45s}.in .tnode:nth-child(5) .d{transition-delay:.6s}
+.tnode .tx b{font-size:15px}.tnode .tx span{font-size:13px;color:var(--smoke);display:block}
+
+/* ================= 14 THE CHECKLIST ================= */
+.checklist{margin-top:50px;display:flex;flex-direction:column;gap:2px;max-width:680px}
+.citem{display:flex;align-items:center;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+.cbox{width:24px;height:24px;border:1px solid var(--whisper);border-radius:6px;flex:none;position:relative;transition:.4s}
+.cbox::after{content:"";position:absolute;left:7px;top:3px;width:7px;height:12px;
+  border:solid var(--void);border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .3s}
+.in .citem .cbox{background:var(--orange);border-color:var(--orange)}
+.in .citem .cbox::after{transform:rotate(45deg) scale(1)}
+.in .citem:nth-child(1) .cbox{transition-delay:.1s}.in .citem:nth-child(2) .cbox{transition-delay:.3s}
+.in .citem:nth-child(3) .cbox{transition-delay:.5s}.in .citem:nth-child(4) .cbox{transition-delay:.7s}
+.in .citem:nth-child(5) .cbox{transition-delay:.9s}.in .citem:nth-child(6) .cbox{transition-delay:1.1s}
+.in .citem:nth-child(n) .cbox::after{transition-delay:inherit}
+.citem .ct{font-size:16px}
+
+/* ================= 15 THE STACK ================= */
+.stack-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;margin-top:50px}
+.stack{position:relative;height:300px}
+.tool{position:absolute;left:0;right:0;margin:0 auto;width:78%;padding:20px 24px;border-radius:12px;
+  background:linear-gradient(160deg,var(--ink),#0d0d0f);border:1px solid var(--line);
+  display:flex;justify-content:space-between;font-size:15px;
+  opacity:0;transform:translateY(-40px);transition:.55s cubic-bezier(.2,.7,.2,1)}
+.tool .cost{font-family:var(--mono);color:var(--orange)}
+.in .tool{opacity:1;transform:translateY(var(--y))}
+.in .tool:nth-child(2){transition-delay:.12s}.in .tool:nth-child(3){transition-delay:.24s}
+.in .tool:nth-child(4){transition-delay:.36s}.in .tool:nth-child(5){transition-delay:.48s}
+.tally .big{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6vw,80px);color:var(--orange)}
+.tally .lbl{font-family:var(--mono);font-size:12px;color:var(--smoke);letter-spacing:.16em;text-transform:uppercase}
+
+/* ================= 16 THE RISKS ================= */
+.risks{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:54px}
+.risk{position:relative;border:1px solid var(--line);border-radius:14px;padding:28px;background:var(--ink);overflow:hidden}
+.risk h3{font-family:var(--serif);font-weight:300;font-size:21px;color:#e87a7a}
+.risk p{font-size:14px;color:var(--smoke);margin-top:8px}
+.risk .patch{position:absolute;inset:0;background:linear-gradient(150deg,var(--orange),var(--amber));
+  display:flex;align-items:center;padding:28px;transform:translateX(-101%);transition:transform .7s cubic-bezier(.6,0,.2,1)}
+.in .risk .patch{transform:translateX(0)}
+.in .risk:nth-child(2) .patch{transition-delay:.18s}
+.in .risk:nth-child(3) .patch{transition-delay:.36s}
+.in .risk:nth-child(4) .patch{transition-delay:.54s}
+.risk .patch b{color:var(--void);font-family:var(--serif);font-weight:400;font-size:19px;font-style:italic}
+
+/* ================= 17 FOOTER ================= */
+footer{position:relative;text-align:center;padding:clamp(110px,18vh,200px) 20px 70px;overflow:hidden}
+footer .haze{position:absolute;left:50%;bottom:-30%;width:90vw;height:70vh;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,var(--ember),transparent 70%);filter:blur(50px)}
+footer .wrap{position:relative}
+footer .mark{width:60px;color:var(--orange);margin:0 auto 30px}
+footer h2{margin-bottom:14px}
+footer .fcta{margin-top:34px;display:inline-block}
+footer .flinks{margin-top:60px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--whisper);
+  display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+
+/* ---- responsive ---- */
+@media(max-width:880px){
+  .model-flow,.tiers,.work-steps,.moats,.math,.paths,.risks,.buyer-grid,.stack-grid{grid-template-columns:1fr}
+  .model-flow::before,.model-flow .draw{display:none}
+  .deliverable{grid-template-columns:repeat(2,1fr)}
+  .dblock.b1,.dblock.b2,.dblock.b3,.dblock.b4,.dblock.b5{grid-column:span 2}
+  .hero-deck{transform:scale(.62)}
+  nav .pill:not(.solid){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero-head{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<!-- ===== 00 LOADING ===== -->
+<div id="loader">
+  <svg class="mark" viewBox="0 0 512 512" fill="none"><g fill="currentColor"><path d="M 256,80 C 380,80 460,170 460,256 C 460,330 405,400 320,418 C 290,422 264,415 245,395 C 220,368 215,330 230,300 C 245,275 280,260 312,265 C 340,270 360,290 360,310 C 360,330 345,340 325,338 C 308,335 295,322 298,308 C 300,298 308,294 314,298 C 310,302 312,308 318,308 C 326,308 330,300 322,290 C 310,278 280,278 262,300 C 240,328 248,370 290,388 C 350,410 420,360 430,290 C 440,200 360,130 256,130 C 152,130 72,200 82,290 C 88,355 130,395 180,400 C 200,400 210,395 215,385 C 165,360 145,310 160,260 C 175,210 220,180 256,180 Z"/></g></svg>
+  <div class="lname">MOBIUS</div>
+  <div class="bar"><i></i></div>
+</div>
+
+<nav>
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 512 512" fill="none"><g fill="currentColor"><path d="M 256,80 C 380,80 460,170 460,256 C 460,330 405,400 320,418 C 290,422 264,415 245,395 C 220,368 215,330 230,300 C 245,275 280,260 312,265 C 340,270 360,290 360,310 C 360,330 345,340 325,338 C 308,335 295,322 298,308 C 300,298 308,294 314,298 C 310,302 312,308 318,308 C 326,308 330,300 322,290 C 310,278 280,278 262,300 C 240,328 248,370 290,388 C 350,410 420,360 430,290 C 440,200 360,130 256,130 C 152,130 72,200 82,290 C 88,355 130,395 180,400 C 200,400 210,395 215,385 C 165,360 145,310 160,260 C 175,210 220,180 256,180 Z"/></g></svg>
+    MOBIUS
+  </a>
+  <a class="pill solid" href="#footer">Start the 7-day trial</a>
+</nav>
+
+<main id="top">
+
+  <!-- ===== 01 HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-stage">
+      <div class="heartbeat"></div>
+      <div class="hero-head">
+        <div class="eyebrow">AI-native brand studio</div>
+        <h1>Brand systems<br>that <em>compound.</em></h1>
+        <p>Mobius rebuilds the brand system of an AI-native startup in 14 days — then runs the AI operating layer on top, for a monthly retainer.</p>
+      </div>
+      <div class="hero-deck">
+        <div class="hcard" data-i="0"><div class="hn">01</div><div class="hl">Brand</div></div>
+        <div class="hcard" data-i="1"><div class="hn">02</div><div class="hl">System</div></div>
+        <div class="hcard" data-i="2"><div class="hn">03</div><div class="hl">AI&nbsp;Layer</div></div>
+        <div class="hcard" data-i="3"><div class="hn">04</div><div class="hl">Retainer</div></div>
+        <div class="hcard" data-i="4"><div class="hn">05</div><div class="hl">Moat</div></div>
+        <div class="hcard" data-i="5"><div class="hn">06</div><div class="hl">Compound</div></div>
+      </div>
+      <div class="scroll-cue">SCROLL</div>
+    </div>
+  </section>
+
+  <!-- ===== 02 THE MODEL ===== -->
+  <section data-section id="model">
+    <div class="wrap">
+      <div class="num reveal">02 — THE MODEL</div>
+      <h2 class="reveal">One model. <em>Three moves.</em></h2>
+      <p class="lead reveal">Request, design, delivery — a single loop that turns a brief into a system without a hire, a meeting, or a delay.</p>
+      <div class="model-flow reveal">
+        <div class="draw"></div>
+        <div class="mstep"><div class="dot"></div><h3>Request</h3><p>You drop a brief. No call, no scoping deck.</p></div>
+        <div class="mstep"><div class="dot"></div><h3>Design</h3><p>The studio + AI agents build the system.</p></div>
+        <div class="mstep"><div class="dot"></div><h3>Delivery</h3><p>Shipped in 14 days. Then it runs on retainer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 THE OFFER ===== -->
+  <section data-section id="offer">
+    <div class="wrap">
+      <div class="num reveal">03 — THE OFFER · T1</div>
+      <h2 class="reveal">Three tiers. <em>One retainer.</em></h2>
+      <div class="tiers">
+        <div class="tier">
+          <div class="tag">Setup</div>
+          <div class="price">$30K</div>
+          <div class="sub">14-day brand system</div>
+          <ul><li>Identity + system</li><li>Site + deck</li><li>Component library</li></ul>
+        </div>
+        <div class="tier feature">
+          <div class="tag">Operating System</div>
+          <div class="price">$15K<span style="font-size:18px">/mo</span></div>
+          <div class="sub">Design + AI content layer</div>
+          <ul><li>Everything in Setup</li><li>AI content production</li><li>Ongoing design ops</li></ul>
+        </div>
+        <div class="tier">
+          <div class="tag">Term</div>
+          <div class="price">6&nbsp;mo</div>
+          <div class="sub">Minimum, then month-to-month</div>
+          <ul><li>No long lock-in</li><li>Cancel anytime after</li><li>Zero hires required</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04 THE BUYER ===== -->
+  <section data-section id="buyer">
+    <div class="wrap">
+      <div class="buyer-grid">
+        <div>
+          <div class="num reveal">04 — THE BUYER</div>
+          <h2 class="reveal">Built for <em>one buyer.</em></h2>
+          <p class="lead reveal">Series A / B AI-native startups. Technical founders. No design team. Fast decisions, high willingness to pay.</p>
+        </div>
+        <div class="chips reveal">
+          <span class="chip hot">Series A / B</span>
+          <span class="chip">$5–30M ARR</span>
+          <span class="chip">10–50 people</span>
+          <span class="chip hot">AI-native</span>
+          <span class="chip">Technical founders</span>
+          <span class="chip">No design team</span>
+          <span class="chip">Raised &lt;12mo</span>
+          <span class="chip hot">Ships fast</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 05 THE LOOK ===== -->
+  <section data-section id="look">
+    <div class="wrap">
+      <div class="num reveal">05 — THE LOOK</div>
+      <h2 class="reveal">A deliverable that <em>composes itself.</em></h2>
+      <div class="deliverable">
+        <div class="dblock b1"></div>
+        <div class="dblock b2"></div>
+        <div class="dblock b3"></div>
+        <div class="dblock b4"></div>
+        <div class="dblock b5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 06 THE PALETTE ===== -->
+  <section class="palette" data-section id="palette">
+    <div class="sweep"></div>
+    <div class="wrap">
+      <h2 class="reveal">Not a logo.<br><em>The whole system.</em></h2>
+    </div>
+  </section>
+
+  <!-- ===== 07 THE WORK ===== -->
+  <section data-section id="work">
+    <div class="wrap">
+      <div class="num reveal">07 — THE WORK</div>
+      <h2 class="reveal">Four steps. <em>Lit in sequence.</em></h2>
+      <div class="work-steps">
+        <div class="wstep"><div class="wn">01</div><h3>Audit</h3><p>Tear down the current brand against the raise.</p></div>
+        <div class="wstep"><div class="wn">02</div><h3>Rebuild</h3><p>New identity, system, and component library.</p></div>
+        <div class="wstep"><div class="wn">03</div><h3>Install</h3><p>Ship it live across every surface in 14 days.</p></div>
+        <div class="wstep"><div class="wn">04</div><h3>Operate</h3><p>Run the AI content layer on retainer.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 08 INTERLUDE ===== -->
+  <section class="interlude" id="interlude-1">
+    <div class="ribbon"></div>
+    <p>"One-off work disappears. A system keeps paying."</p>
+  </section>
+
+  <!-- ===== 09 THE MOATS ===== -->
+  <section data-section id="moats">
+    <div class="wrap">
+      <div class="num reveal">09 — THE MOATS · T2</div>
+      <h2 class="reveal">Six <em>moats.</em></h2>
+      <div class="moats">
+        <div class="moat"><div class="mi">01</div><h3>Process</h3><p>A 14-day delivery loop nobody can copy at speed.</p></div>
+        <div class="moat"><div class="mi">02</div><h3>AI agents</h3><p>Proprietary agents that run the content layer.</p></div>
+        <div class="moat"><div class="mi">03</div><h3>Brand IP</h3><p>Systems we own the templates and tokens for.</p></div>
+        <div class="moat"><div class="mi">04</div><h3>Retainer lock</h3><p>Recurring revenue with a 6-month floor.</p></div>
+        <div class="moat"><div class="mi">05</div><h3>Distribution</h3><p>We sell where the buyers already gather.</p></div>
+        <div class="moat"><div class="mi">06</div><h3>Speed</h3><p>First system shipped before a competitor scopes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10 DISTRIBUTION ===== -->
+  <section data-section id="distribution">
+    <div class="wrap">
+      <div class="num reveal">10 — DISTRIBUTION · T4</div>
+      <h2 class="reveal">Compounding <em>reach.</em></h2>
+      <p class="lead reveal">Every shipped system becomes a public proof point — Twitter, Dribbble, founder Slack groups. The line only goes up.</p>
+      <div class="dist reveal">
+        <svg viewBox="0 0 800 300" preserveAspectRatio="none">
+          <defs><linearGradient id="distfill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FF6B2C" stop-opacity=".35"/>
+            <stop offset="1" stop-color="#FF6B2C" stop-opacity="0"/>
+          </linearGradient></defs>
+          <path class="dist-area" d="M0,280 L80,250 L200,255 L320,200 L440,170 L560,110 L680,70 L800,20 L800,300 L0,300 Z"/>
+          <path class="dist-line" d="M0,280 L80,250 L200,255 L320,200 L440,170 L560,110 L680,70 L800,20"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 11 INTERLUDE ===== -->
+  <section class="interlude" id="interlude-2">
+    <div class="orbit"><i></i><i></i><i></i></div>
+    <p>"The brand goes in once. The retainer never stops."</p>
+  </section>
+
+  <!-- ===== 12 THE MATH ===== -->
+  <section data-section id="math">
+    <div class="wrap">
+      <div class="num reveal">12 — THE MATH · T3</div>
+      <h2 class="reveal">From bench <em>to revenue.</em></h2>
+      <div class="math">
+        <div class="stat reveal"><div class="big">$<span data-count="45">0</span>K</div><div class="lbl">Avg setup fee</div></div>
+        <div class="stat reveal"><div class="big">$<span data-count="15">0</span>K</div><div class="lbl">Monthly retainer</div></div>
+        <div class="stat reveal"><div class="big"><span data-count="14">0</span></div><div class="lbl">Days to delivery</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 13 TWO PATHS ===== -->
+  <section data-section id="paths">
+    <div class="wrap">
+      <div class="num reveal">13 — TWO PATHS</div>
+      <h2 class="reveal">Two ways <em>in.</em></h2>
+      <div class="paths">
+        <div class="path feature">
+          <h3>The Trial — 7 days</h3>
+          <div class="tline">
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 1</b><span>Brief + audit</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 3</b><span>First system draft</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 5</b><span>Live preview</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 7</b><span>Decision gate</span></div></div>
+          </div>
+        </div>
+        <div class="path">
+          <h3>The Build — 6 days</h3>
+          <div class="tline">
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 1</b><span>System locked</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 3</b><span>Surfaces built</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 5</b><span>Install + QA</span></div></div>
+            <div class="tnode"><div class="d"></div><div class="tx"><b>Day 6</b><span>Retainer begins</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 14 THE CHECKLIST ===== -->
+  <section data-section id="checklist">
+    <div class="wrap">
+      <div class="num reveal">14 — THE CHECKLIST</div>
+      <h2 class="reveal">It ticks <em>itself off.</em></h2>
+      <div class="checklist">
+        <div class="citem"><div class="cbox"></div><div class="ct">Brief received and parsed</div></div>
+        <div class="citem"><div class="cbox"></div><div class="ct">Audit against the last raise</div></div>
+        <div class="citem"><div class="cbox"></div><div class="ct">Identity + system designed</div></div>
+        <div class="citem"><div class="cbox"></div><div class="ct">Component library shipped</div></div>
+        <div class="citem"><div class="cbox"></div><div class="ct">Surfaces installed live</div></div>
+        <div class="citem"><div class="cbox"></div><div class="ct">AI operating layer running</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 15 THE STACK ===== -->
+  <section data-section id="stack">
+    <div class="wrap">
+      <div class="num reveal">15 — THE STACK</div>
+      <h2 class="reveal">The stack you <em>don't hire.</em></h2>
+      <div class="stack-grid">
+        <div class="stack reveal">
+          <div class="tool" style="--y:0px"><span>Brand designer</span><span class="cost">$11K/mo</span></div>
+          <div class="tool" style="--y:58px"><span>Content lead</span><span class="cost">$9K/mo</span></div>
+          <div class="tool" style="--y:116px"><span>Design tooling</span><span class="cost">$2K/mo</span></div>
+          <div class="tool" style="--y:174px"><span>AI infra</span><span class="cost">$3K/mo</span></div>
+          <div class="tool" style="--y:232px"><span>Mobius retainer</span><span class="cost">$15K/mo</span></div>
+        </div>
+        <div class="tally reveal">
+          <div class="big">$<span data-count="25">0</span>K</div>
+          <div class="lbl">Saved every month</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 16 THE RISKS ===== -->
+  <section data-section id="risks">
+    <div class="wrap">
+      <div class="num reveal">16 — THE RISKS</div>
+      <h2 class="reveal">Every risk <em>gets patched.</em></h2>
+      <div class="risks">
+        <div class="risk"><h3>"Too slow"</h3><p>Agencies take a quarter to ship a rebrand.</p>
+          <div class="patch"><b>14-day delivery, fixed.</b></div></div>
+        <div class="risk"><h3>"Too expensive"</h3><p>A full design team costs $20K+/mo loaded.</p>
+          <div class="patch"><b>One retainer. Zero hires.</b></div></div>
+        <div class="risk"><h3>"Won't stick"</h3><p>One-off rebrands rot within two quarters.</p>
+          <div class="patch"><b>The AI layer keeps it alive.</b></div></div>
+        <div class="risk"><h3>"Locked in"</h3><p>Long contracts trap you with a bad fit.</p>
+          <div class="patch"><b>Month-to-month after six.</b></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 17 FOOTER ===== -->
+  <footer id="footer">
+    <div class="haze"></div>
+    <div class="wrap">
+      <svg class="mark" viewBox="0 0 512 512" fill="none"><g fill="currentColor"><path d="M 256,80 C 380,80 460,170 460,256 C 460,330 405,400 320,418 C 290,422 264,415 245,395 C 220,368 215,330 230,300 C 245,275 280,260 312,265 C 340,270 360,290 360,310 C 360,330 345,340 325,338 C 308,335 295,322 298,308 C 300,298 308,294 314,298 C 310,302 312,308 318,308 C 326,308 330,300 322,290 C 310,278 280,278 262,300 C 240,328 248,370 290,388 C 350,410 420,360 430,290 C 440,200 360,130 256,130 C 152,130 72,200 82,290 C 88,355 130,395 180,400 C 200,400 210,395 215,385 C 165,360 145,310 160,260 C 175,210 220,180 256,180 Z"/></g></svg>
+      <h2>Start the <em>7-day trial.</em></h2>
+      <p class="lead" style="margin:18px auto 0">One brief. One week. A brand system that compounds — or you walk.</p>
+      <a class="pill solid fcta" href="#top">Begin the trial</a>
+      <div class="flinks"><span>MOBIUS</span><span>BRAND × AI</span><span>SERIES A / B</span></div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- 00 loader ---- */
+  var loader = document.getElementById('loader');
+  var fill = loader.querySelector('.bar i');
+  var p = 0;
+  var tick = setInterval(function(){
+    p += Math.random()*16 + 6;
+    if(p >= 100){ p = 100; clearInterval(tick); setTimeout(dismiss, 280); }
+    fill.style.width = p + '%';
+  }, 110);
+  function dismiss(){
+    loader.classList.add('done');
+    setTimeout(function(){ loader.remove(); if(window.ScrollTrigger) ScrollTrigger.refresh(); }, 750);
+  }
+
+  if(!window.gsap){ document.querySelectorAll('section').forEach(function(s){s.classList.add('in');}); return; }
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ---- section reveals ---- */
+  gsap.utils.toArray('section[data-section]').forEach(function(sec){
+    ScrollTrigger.create({ trigger:sec, start:'top 78%', once:true,
+      onEnter:function(){ sec.classList.add('in'); } });
+  });
+
+  /* ---- counters ---- */
+  gsap.utils.toArray('[data-count]').forEach(function(el){
+    var end = parseFloat(el.dataset.count);
+    ScrollTrigger.create({ trigger:el, start:'top 88%', once:true, onEnter:function(){
+      var o = {v:0};
+      gsap.to(o, {v:end, duration:1.6, ease:'power2.out', onUpdate:function(){
+        el.textContent = Math.round(o.v);
+      }});
+    }});
+  });
+
+  /* ---- 10 distribution line draw ---- */
+  var dl = document.querySelector('.dist-line');
+  if(dl){
+    var len = dl.getTotalLength();
+    dl.style.strokeDasharray = len; dl.style.strokeDashoffset = len;
+    gsap.to(dl, { strokeDashoffset:0, ease:'none',
+      scrollTrigger:{ trigger:'#distribution', start:'top 72%', end:'bottom 78%', scrub:1 } });
+  }
+
+  /* ---- 01 hero ---- */
+  var stage = document.querySelector('.hero-stage');
+  var cards = gsap.utils.toArray('.hcard');
+
+  function fanPos(i){ return { x:-250 + i*96, y:140 - i*54, rot:-20 + i*3, scale:1.06 - i*.07 }; }
+  function gridPos(i){ var c=i%3, r=Math.floor(i/3);
+    return { x:(c-1)*184, y:(r-0.5)*224 - 24, rot:0, scale:1 }; }
+
+  /* cards rest in the fan formation, fully visible on load */
+  cards.forEach(function(c,i){ var f=fanPos(i);
+    gsap.set(c,{ x:f.x, y:f.y, rotation:f.rot, scale:f.scale, opacity:1 }); });
+
+  if(REDUCE){
+    cards.forEach(function(c,i){ var g=gridPos(i);
+      gsap.set(c,{ x:g.x, y:g.y, rotation:0, scale:1 }); });
+    stage.classList.add('settled');
+  } else {
+    /* one-time intro: deck slides in from the right, headline rises */
+    gsap.from('.hero-deck',{ xPercent:38, autoAlpha:0, duration:1.3, ease:'power3.out', delay:.15 });
+    gsap.from('.hero-head',{ y:34, autoAlpha:0, duration:1, ease:'power2.out', delay:.4 });
+
+    /* scroll-scrub: fan -> hierarchy grid */
+    var tl = gsap.timeline({ scrollTrigger:{
+      trigger:'.hero', start:'top top', end:'+=3000', scrub:1,
+      pin:'.hero-stage', anticipatePin:1,
+      onUpdate:function(self){ stage.classList.toggle('settled', self.progress > 0.72); }
+    }});
+    cards.forEach(function(c,i){ var f=fanPos(i), g=gridPos(i);
+      tl.fromTo(c,
+        { x:f.x, y:f.y, rotation:f.rot, scale:f.scale },
+        { x:g.x, y:g.y, rotation:0, scale:1, ease:'power3.inOut', duration:.7 },
+        i*0.05);
+    });
+  }
+
+  /* ---- hero ambient light glide ---- */
+  var li = 0;
+  setInterval(function(){
+    cards.forEach(function(c){ c.classList.remove('lit'); });
+    cards[li % cards.length].classList.add('lit');
+    li++;
+  }, 1500);
+
+})();
+</script>
+</body>
+</html>
