@@ -83,7 +83,7 @@ h2 em{font-style:italic;color:var(--orange)}
 /* ================= 01 HERO ================= */
 .hero{height:100vh}
 .hero-stage{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
-.hero-head{position:absolute;top:13vh;left:0;right:0;text-align:center;opacity:0;transform:translateY(40px);padding:0 20px;z-index:5}
+.hero-head{position:absolute;top:13vh;left:0;right:0;text-align:center;padding:0 20px;z-index:5}
 .hero-head .eyebrow{margin-bottom:14px}
 .hero-head h1{font-family:var(--serif);font-weight:300;font-size:clamp(40px,7vw,104px);line-height:.98;letter-spacing:-.03em}
 .hero-head h1 em{font-style:italic;color:var(--orange)}
@@ -677,29 +677,31 @@ footer .flinks{margin-top:60px;font-family:var(--mono);font-size:12px;letter-spa
   function gridPos(i){ var c=i%3, r=Math.floor(i/3);
     return { x:(c-1)*184, y:(r-0.5)*224 - 24, rot:0, scale:1 }; }
 
+  /* cards rest in the fan formation, fully visible on load */
+  cards.forEach(function(c,i){ var f=fanPos(i);
+    gsap.set(c,{ x:f.x, y:f.y, rotation:f.rot, scale:f.scale, opacity:1 }); });
+
   if(REDUCE){
     cards.forEach(function(c,i){ var g=gridPos(i);
-      gsap.set(c,{x:g.x,y:g.y,opacity:1}); });
-    document.querySelector('.hero-head').style.opacity = 1;
-    document.querySelector('.hero-head').style.transform = 'none';
+      gsap.set(c,{ x:g.x, y:g.y, rotation:0, scale:1 }); });
     stage.classList.add('settled');
   } else {
-    cards.forEach(function(c){ gsap.set(c,{x:880,y:-220,rotation:-36,scale:.55,opacity:0}); });
+    /* one-time intro: deck slides in from the right, headline rises */
+    gsap.from('.hero-deck',{ xPercent:38, autoAlpha:0, duration:1.3, ease:'power3.out', delay:.15 });
+    gsap.from('.hero-head',{ y:34, autoAlpha:0, duration:1, ease:'power2.out', delay:.4 });
+
+    /* scroll-scrub: fan -> hierarchy grid */
     var tl = gsap.timeline({ scrollTrigger:{
-      trigger:'.hero', start:'top top', end:'+=3400', scrub:1,
+      trigger:'.hero', start:'top top', end:'+=3000', scrub:1,
       pin:'.hero-stage', anticipatePin:1,
       onUpdate:function(self){ stage.classList.toggle('settled', self.progress > 0.72); }
     }});
-    cards.forEach(function(c,i){ var f=fanPos(i);
-      tl.to(c,{ x:f.x, y:f.y, rotation:f.rot, scale:f.scale, opacity:1,
-        ease:'power2.out', duration:.5 }, i*0.13);
+    cards.forEach(function(c,i){ var f=fanPos(i), g=gridPos(i);
+      tl.fromTo(c,
+        { x:f.x, y:f.y, rotation:f.rot, scale:f.scale },
+        { x:g.x, y:g.y, rotation:0, scale:1, ease:'power3.inOut', duration:.7 },
+        i*0.05);
     });
-    cards.forEach(function(c,i){ var g=gridPos(i);
-      tl.to(c,{ x:g.x, y:g.y, rotation:0, scale:1,
-        ease:'power3.inOut', duration:.6 }, 1.15 + i*0.05);
-    });
-    tl.to('.hero-head',{ opacity:1, y:0, ease:'power2.out', duration:.6 }, 1.25);
-    tl.to('.scroll-cue',{ opacity:0, duration:.3 }, 0.1);
   }
 
   /* ---- hero ambient light glide ---- */
