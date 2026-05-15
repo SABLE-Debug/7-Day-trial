@@ -5,6 +5,12 @@ list when prompting Lovable — name the animations explicitly so the build is
 intentional, not random. House feel: **cinematic, slow-in/slow-out, restrained.**
 Signature easing: `cubic-bezier(.2,.7,.2,1)`.
 
+## Copy-paste snippet (20 words)
+
+```
+Kinetic typography, rise-and-fade reveals, staggered entrances, cinematic cross-fades, orange sweep wipes, slow logo spin, count-up numbers, glow pulse, parallax depth.
+```
+
 ## Entrance / reveal
 
 - **Rise + fade** — element starts ~26px low and transparent, eases up into
